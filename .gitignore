@@ -1,0 +1,17 @@
+# macOS / Windows junk
+.DS_Store
+Thumbs.db
+
+# Editor noise
+.vscode/
+.idea/
+*.swp
+
+# Local notes never meant for the repo
+HANDOFF.md
+TASKS.md
+DECISIONS.md
+ROADMAP.md
+CLAUDE.md
+Backup/
+VERSION

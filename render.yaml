@@ -1,0 +1,23 @@
+# Render service config for Pitchy LP (mobile landing page).
+# When you connect this repo to Render, the dashboard reads this file
+# and creates the static site service.
+#
+# This is a pure static site (one HTML file + a static/ folder).
+# No build step, no server, no env vars.
+
+services:
+  - type: web
+    name: pitchy-lp
+    runtime: static
+    plan: free
+    region: oregon
+    autoDeploy: true
+    buildCommand: ""
+    staticPublishPath: .
+    headers:
+      - path: /*
+        name: X-Frame-Options
+        value: SAMEORIGIN
+      - path: /*
+        name: Referrer-Policy
+        value: strict-origin-when-cross-origin

@@ -1,0 +1,914 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Pitchy — Mobile LP Artboard</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Cormorant+Garamond:ital,wght@1,500;1,600&family=Lato:ital,wght@1,400;1,700&display=swap" rel="stylesheet">
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html, body {
+    background: #0a0b16;
+    min-height: 100vh;
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    -webkit-font-smoothing: antialiased;
+    color: #fff;
+  }
+
+  /* =========================================================
+     Artboard
+     ========================================================= */
+  .artboard {
+    min-height: 100vh;
+    padding: 60px 40px 80px;
+  }
+  .artboard-header {
+    text-align: center;
+    margin-bottom: 50px;
+  }
+  .artboard-header .eyebrow-art {
+    color: #EE9A3B;
+    font-weight: 700;
+    font-size: 12px;
+    letter-spacing: 0.18em;
+    margin-bottom: 8px;
+  }
+  .artboard-header h2 {
+    font-size: 30px;
+    font-weight: 800;
+    letter-spacing: -0.02em;
+    margin-bottom: 8px;
+  }
+  .artboard-header p {
+    color: #8a8fa8;
+    font-size: 15px;
+    max-width: 640px;
+    margin: 0 auto;
+  }
+
+  .row {
+    display: flex;
+    justify-content: center;
+    gap: 56px;
+    flex-wrap: wrap;
+  }
+  .col {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  .step-label {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 22px;
+  }
+  .step-num {
+    width: 32px; height: 32px;
+    border-radius: 50%;
+    background: #EE7B3B;
+    color: #14152C;
+    font-weight: 800;
+    font-size: 14px;
+    display: flex; align-items: center; justify-content: center;
+  }
+  .step-text {
+    color: #fff;
+    font-weight: 700;
+    font-size: 17px;
+    letter-spacing: -0.01em;
+  }
+  .step-sub {
+    color: #6a6f8a;
+    font-size: 13px;
+    margin-top: 4px;
+    text-align: center;
+    max-width: 360px;
+  }
+
+  /* Arrows between phones */
+  .flow-arrow {
+    align-self: center;
+    color: #3a3f5a;
+    font-size: 38px;
+    line-height: 1;
+    margin: 0 -20px;
+    user-select: none;
+    margin-top: 380px;
+  }
+
+  /* =========================================================
+     iPhone frame
+     ========================================================= */
+  .phone {
+    position: relative;
+    width: 400px;
+    height: 850px;
+    background: #14152C;
+    border-radius: 60px;
+    border: 10px solid #1c1d2e;
+    box-shadow:
+      inset 0 0 0 2px #2a2b40,
+      0 40px 100px rgba(0,0,0,0.55),
+      0 10px 40px rgba(0,0,0,0.4);
+    overflow: hidden;
+  }
+
+  .side-btn { position: absolute; background: #1c1d2e; border-radius: 2px; }
+  .side-btn.mute  { left: -14px; top: 110px; width: 4px; height: 28px; }
+  .side-btn.vup   { left: -14px; top: 160px; width: 4px; height: 56px; }
+  .side-btn.vdown { left: -14px; top: 230px; width: 4px; height: 56px; }
+  .side-btn.power { right: -14px; top: 180px; width: 4px; height: 90px; }
+
+  .island {
+    position: absolute;
+    top: 14px; left: 50%;
+    transform: translateX(-50%);
+    width: 122px; height: 36px;
+    background: #000;
+    border-radius: 22px;
+    z-index: 20;
+  }
+
+  .screen {
+    position: absolute; inset: 0;
+    overflow-y: auto; overflow-x: hidden;
+    padding: 0 22px 28px;
+  }
+  .screen::-webkit-scrollbar { display: none; }
+
+  /* Status bar */
+  .status {
+    display: flex; justify-content: space-between; align-items: center;
+    padding: 18px 14px 0;
+    margin: 0 -8px;
+    height: 54px;
+    font-weight: 600; font-size: 16px;
+    color: #fff;
+  }
+  .status .right { display: flex; align-items: center; gap: 6px; }
+
+  /* Top header row */
+  .header-row {
+    display: flex; justify-content: space-between; align-items: center;
+    margin-top: 8px; margin-bottom: 26px;
+  }
+  .tile {
+    width: 46px; height: 46px;
+    border-radius: 11px;
+    display: flex; align-items: center; justify-content: center;
+    color: #fff;
+  }
+  .tile.brand {
+    background: #EE3F22;
+    font-weight: 900; font-size: 26px; line-height: 1; padding-top: 2px;
+    box-shadow: 0 4px 12px rgba(238,63,34,0.35);
+  }
+  .tile.ai {
+    background: #F08A2C;
+    box-shadow: 0 4px 12px rgba(240,138,44,0.35);
+  }
+
+  /* Eyebrow + heading + project chip */
+  .eyebrow {
+    color: #EE9A3B;
+    font-weight: 700; font-size: 12px;
+    letter-spacing: 0.14em;
+    margin-bottom: 10px;
+  }
+  h1 {
+    font-size: 23px; font-weight: 700;
+    line-height: 1.22;
+    letter-spacing: -0.01em;
+    margin-bottom: 16px;
+    color: #fff;
+  }
+  .project {
+    display: flex; align-items: center; gap: 10px;
+    margin-bottom: 20px;
+  }
+  .project .avatar {
+    width: 30px; height: 30px;
+    border-radius: 50%;
+    background: #2a2b48;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 16px;
+  }
+  .project .name {
+    color: #9ca0e8;
+    font-weight: 600; font-size: 15px;
+  }
+
+  .divider {
+    height: 1px;
+    background: rgba(255,255,255,0.08);
+    margin: 0 -22px 18px;
+  }
+
+  /* Indigo callout */
+  .callout {
+    background: rgba(99, 102, 241, 0.14);
+    border: 1px solid rgba(99, 102, 241, 0.22);
+    border-radius: 18px;
+    padding: 20px;
+    margin-bottom: 18px;
+  }
+  .callout-title {
+    color: #EE7B3B;
+    font-weight: 700; font-size: 16px;
+    line-height: 1.35;
+    margin-bottom: 12px;
+  }
+  .callout-body {
+    color: #d9dbf0;
+    font-size: 14.5px; line-height: 1.45;
+  }
+
+  /* CTA stack */
+  .cta-stack {
+    background: linear-gradient(180deg, rgba(238,123,59,0.18) 0%, rgba(192, 80, 30, 0.12) 100%);
+    border: 1px solid rgba(238,123,59,0.20);
+    border-radius: 22px;
+    padding: 14px;
+    display: flex; flex-direction: column; gap: 10px;
+    margin-bottom: 22px;
+  }
+  .btn {
+    display: block; width: 100%; text-align: center;
+    border: 0;
+    padding: 17px 22px;
+    border-radius: 999px;
+    font-weight: 700; font-size: 16px;
+    cursor: pointer; font-family: inherit;
+    transition: transform 100ms ease, filter 120ms ease;
+  }
+  .btn:hover { filter: brightness(1.05); }
+  .btn:active { transform: scale(0.985); }
+  .btn-primary {
+    background: linear-gradient(180deg, #F4A45A 0%, #EE7B3B 100%);
+    color: #1a1c33;
+    box-shadow: 0 4px 12px rgba(238,123,59,0.35);
+  }
+  .btn-secondary {
+    background: #B95A28;
+    color: #fff;
+  }
+
+  /* Floating bottom */
+  .fab {
+    position: absolute;
+    bottom: 14px; left: 50%;
+    transform: translateX(-50%);
+    width: 60px; height: 38px;
+    background: rgba(99,102,241,0.30);
+    backdrop-filter: blur(10px);
+    border-radius: 20px;
+    display: flex; align-items: center; justify-content: center;
+    z-index: 30;
+    border: 1px solid rgba(255,255,255,0.06);
+  }
+
+  /* =========================================================
+     SCREEN 1 — Landing
+     ========================================================= */
+  /* Screen 1 only — dark-to-navy hero gradient + bottom-anchored proof row */
+  .screen-landing {
+    background: linear-gradient(180deg, #04050E 0%, #0A0B1C 18%, #14152C 36%);
+    display: flex;
+    flex-direction: column;
+    min-height: 100%;
+    padding-bottom: 70px; /* clear the FAB */
+  }
+  .screen-landing .proof-row {
+    margin-top: auto;
+    margin-bottom: 0;
+  }
+  .hero-headline {
+    font-size: 36px;
+    font-weight: 800;
+    line-height: 1.08;
+    letter-spacing: -0.03em;
+    margin-bottom: 16px;
+    color: #fff;
+    text-align: center;
+    padding: 0 8px;
+  }
+  .hero-headline .accent {
+    color: #EE7B3B;
+  }
+  .hero-lede {
+    color: #8a8fa8;
+    font-size: 15px;
+    line-height: 1.5;
+    margin-bottom: 24px;
+    max-width: 320px;
+    text-align: center;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  .upload-card {
+    background: #1a1c33;
+    border: 1px solid rgba(255,255,255,0.06);
+    border-radius: 20px;
+    padding: 16px;
+    margin-bottom: 16px;
+  }
+  .drop-target {
+    border: 2px dashed rgba(255,255,255,0.16);
+    border-radius: 14px;
+    padding: 28px 16px;
+    text-align: center;
+  }
+  .drop-icon {
+    font-size: 30px;
+    color: #EE7B3B;
+    margin-bottom: 6px;
+  }
+  .drop-title {
+    font-size: 16px;
+    font-weight: 700;
+    margin-bottom: 4px;
+  }
+  .drop-sub {
+    color: #8a8fa8;
+    font-size: 13px;
+  }
+  .trust-row {
+    display: flex; align-items: center;
+    gap: 10px;
+    color: #8a8fa8;
+    font-size: 13px;
+    margin: 22px 0 18px;
+  }
+  .trust-row .dot {
+    width: 6px; height: 6px;
+    border-radius: 50%;
+    background: #22B2BA;
+  }
+  .proof-row {
+    display: flex; justify-content: space-between;
+    text-align: center;
+    padding: 18px 8px;
+    border-top: 1px solid rgba(255,255,255,0.06);
+    margin: 4px -8px 22px;
+  }
+  .proof-stat .num {
+    font-size: 22px; font-weight: 800;
+    color: #fff;
+    letter-spacing: -0.02em;
+  }
+  .proof-stat .lbl {
+    font-size: 11px;
+    color: #8a8fa8;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    margin-top: 2px;
+  }
+
+  /* =========================================================
+     Speech bubble (Wil quote)
+     ========================================================= */
+  .speech-wrap {
+    margin-bottom: 22px;
+  }
+  .speech {
+    position: relative;
+    background: #F1EFE8;
+    border-radius: 22px;
+    padding: 22px 22px 22px 26px;
+    color: #2C2C2A;
+  }
+  .speech::after {
+    content: '';
+    position: absolute;
+    right: 36px;
+    bottom: -14px;
+    width: 22px; height: 22px;
+    background: #F1EFE8;
+    clip-path: polygon(0 0, 100% 0, 70% 100%);
+  }
+  .speech-quote-mark {
+    position: absolute;
+    top: 6px; left: 14px;
+    font-family: 'Cormorant Garamond', serif;
+    font-weight: 700;
+    font-size: 46px;
+    line-height: 1;
+    color: #EE7B3B;
+  }
+  .speech-text {
+    font-family: 'Lato', sans-serif;
+    font-style: italic;
+    font-weight: 400;
+    font-size: 20px;
+    line-height: 1.45;
+    color: #2C2C2A;
+    padding-left: 18px;
+  }
+  .speech-text strong {
+    font-weight: 700;
+  }
+  .speech-attr {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    gap: 10px;
+    margin-top: 16px;
+    padding-right: 4px;
+  }
+  .speech-attr .attr-text {
+    color: #9ca0e8;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+  }
+  .speech-attr .attr-avatar {
+    width: 26px; height: 26px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #c39d7b, #6b4a33);
+    border: 1.5px solid rgba(255,255,255,0.15);
+    overflow: hidden;
+    flex-shrink: 0;
+  }
+  .speech-attr .attr-avatar img {
+    width: 100%; height: 100%; object-fit: cover; display: block;
+  }
+
+  /* =========================================================
+     SCREEN 2 — Initial Report
+     ========================================================= */
+  .grade-card {
+    background: #1a1c33;
+    border-radius: 22px;
+    border: 1px solid rgba(255,255,255,0.06);
+    padding: 24px 20px 20px;
+    margin-bottom: 16px;
+    text-align: center;
+  }
+  .grade-eyebrow {
+    color: #EE9A3B;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.14em;
+    margin-bottom: 12px;
+  }
+  .grade-ring {
+    position: relative;
+    width: 150px; height: 150px;
+    margin: 0 auto 14px;
+  }
+  .grade-ring svg {
+    width: 100%; height: 100%;
+    transform: rotate(-90deg);
+  }
+  .grade-inner {
+    position: absolute; inset: 0;
+    display: flex; flex-direction: column;
+    align-items: center; justify-content: center;
+  }
+  .grade-letter {
+    font-size: 56px;
+    font-weight: 800;
+    color: #fff;
+    line-height: 1;
+    letter-spacing: -0.04em;
+  }
+  .grade-caption {
+    font-size: 11px;
+    color: #8a8fa8;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    margin-top: 4px;
+  }
+  .grade-verdict {
+    font-size: 16px;
+    font-weight: 600;
+    color: #d9dbf0;
+    line-height: 1.4;
+  }
+  .stat-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 8px;
+    margin-bottom: 16px;
+  }
+  .stat-cell {
+    background: #1a1c33;
+    border: 1px solid rgba(255,255,255,0.06);
+    border-radius: 14px;
+    padding: 14px 8px;
+    text-align: center;
+  }
+  .stat-cell .num {
+    font-size: 22px;
+    font-weight: 800;
+    letter-spacing: -0.02em;
+  }
+  .stat-cell.warn .num { color: #DC4A41; }
+  .stat-cell.good .num { color: #22B2BA; }
+  .stat-cell .lbl {
+    font-size: 10.5px;
+    color: #8a8fa8;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    margin-top: 3px;
+  }
+  .issue-callout {
+    background: rgba(220, 74, 65, 0.10);
+    border: 1px solid rgba(220, 74, 65, 0.25);
+    border-radius: 18px;
+    padding: 20px;
+    margin-bottom: 18px;
+  }
+  .issue-pill {
+    display: inline-block;
+    background: rgba(220, 74, 65, 0.20);
+    color: #ff7a72;
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    padding: 4px 10px;
+    border-radius: 6px;
+    margin-bottom: 10px;
+  }
+  .issue-title {
+    font-size: 17px;
+    font-weight: 700;
+    line-height: 1.3;
+    margin-bottom: 8px;
+  }
+  .issue-body {
+    color: #d9dbf0;
+    font-size: 14px;
+    line-height: 1.5;
+  }
+
+  /* =========================================================
+     SCREEN 3 — Show Magic
+     ========================================================= */
+  .fix-headline {
+    font-size: 22px;
+    font-weight: 700;
+    line-height: 1.25;
+    margin-bottom: 18px;
+    color: #fff;
+  }
+  .ba-card {
+    border-radius: 16px;
+    padding: 16px 16px 18px;
+    margin-bottom: 12px;
+  }
+  .ba-label {
+    display: inline-block;
+    font-size: 10.5px;
+    font-weight: 700;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    padding: 4px 9px;
+    border-radius: 5px;
+    margin-bottom: 10px;
+  }
+  .ba-card.before {
+    background: rgba(220, 74, 65, 0.08);
+    border: 1px solid rgba(220, 74, 65, 0.22);
+  }
+  .ba-card.before .ba-label {
+    background: rgba(220, 74, 65, 0.22);
+    color: #ff7a72;
+  }
+  .ba-card.after {
+    background: rgba(34, 178, 186, 0.10);
+    border: 1px solid rgba(34, 178, 186, 0.25);
+    margin-bottom: 18px;
+  }
+  .ba-card.after .ba-label {
+    background: rgba(34, 178, 186, 0.22);
+    color: #6fdde2;
+  }
+  .ba-quote {
+    font-family: 'Cormorant Garamond', serif;
+    font-style: italic;
+    font-size: 17px;
+    line-height: 1.4;
+    color: #e8eaf6;
+  }
+  .ba-quote .stat {
+    font-style: normal;
+    font-family: 'Inter', sans-serif;
+    font-weight: 700;
+    color: #fff;
+  }
+  .magic-pull {
+    background: rgba(99, 102, 241, 0.14);
+    border: 1px solid rgba(99, 102, 241, 0.22);
+    border-radius: 16px;
+    padding: 16px 18px;
+    margin-bottom: 18px;
+    text-align: center;
+  }
+  .magic-pull .big {
+    font-size: 22px;
+    font-weight: 800;
+    color: #fff;
+    letter-spacing: -0.02em;
+  }
+  .magic-pull .sm {
+    color: #b4b8cc;
+    font-size: 13.5px;
+    margin-top: 4px;
+  }
+
+  /* Footer caption under each phone */
+  .phone-caption {
+    position: absolute;
+    bottom: -36px;
+    left: 0; right: 0;
+    text-align: center;
+    color: #5a5e7a;
+    font-size: 11px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+  }
+
+</style>
+</head>
+<body>
+
+<div class="artboard">
+
+  <div class="artboard-header">
+    <div class="eyebrow-art">PITCHY · MOBILE LP FUNNEL</div>
+    <h2>Three screens. From upload to upsell.</h2>
+    <p>Founder lands, drops a deck, gets the bad news, sees the fix, asks for more.</p>
+  </div>
+
+  <div class="row">
+
+    <!-- ============================================
+         STEP 1 — LANDING
+         ============================================ -->
+    <div class="col">
+      <div class="step-label">
+        <div class="step-num">1</div>
+        <div>
+          <div class="step-text">Landing</div>
+          <div class="step-sub">Outcome promise + upload</div>
+        </div>
+      </div>
+
+      <div class="phone">
+        <span class="side-btn mute"></span>
+        <span class="side-btn vup"></span>
+        <span class="side-btn vdown"></span>
+        <span class="side-btn power"></span>
+        <div class="island"></div>
+
+        <div class="screen screen-landing">
+          <div class="status">
+            <span>9:41</span>
+            <div class="right">
+              <svg width="18" height="11" viewBox="0 0 18 11"><g fill="#fff">
+                <rect x="0" y="7" width="3" height="4" rx="0.5"/>
+                <rect x="5" y="5" width="3" height="6" rx="0.5"/>
+                <rect x="10" y="2" width="3" height="9" rx="0.5"/>
+                <rect x="15" y="0" width="3" height="11" rx="0.5"/>
+              </g></svg>
+              <svg width="17" height="12" viewBox="0 0 17 12" fill="#fff">
+                <path d="M8.5 0C5.4 0 2.5 1.1 0.3 3l1.4 1.4C3.6 2.7 5.9 1.8 8.5 1.8s4.9 0.9 6.8 2.6L16.7 3C14.5 1.1 11.6 0 8.5 0zm0 3.6c-2.2 0-4.2 0.8-5.8 2.2L4.1 7.2C5.3 6.1 6.8 5.4 8.5 5.4s3.2 0.7 4.4 1.8l1.4-1.4c-1.6-1.4-3.6-2.2-5.8-2.2zm0 3.6c-1.2 0-2.3 0.5-3.1 1.3L8.5 12l3.1-3.5c-0.8-0.8-1.9-1.3-3.1-1.3z"/>
+              </svg>
+              <svg width="27" height="12" viewBox="0 0 27 12">
+                <rect x="0.5" y="0.5" width="22" height="11" rx="3" fill="none" stroke="#fff" stroke-opacity="0.5" stroke-width="1"/>
+                <rect x="2" y="2" width="19" height="8" rx="1.5" fill="#fff"/>
+                <rect x="24" y="4" width="2" height="4" rx="1" fill="#fff" fill-opacity="0.5"/>
+              </svg>
+            </div>
+          </div>
+
+          <div class="hero-headline" style="margin-top: 64px;">Find out how your <span class="accent">deck</span> gets a <span class="accent">check.</span></div>
+          <div class="hero-lede">Drop your deck. We'll tell you what's working, what's broken, and how to fix it. About 5 minutes.</div>
+
+          <div class="upload-card">
+            <div class="drop-target">
+              <div class="drop-icon">&#8682;</div>
+              <div class="drop-title">Drop your deck</div>
+              <div class="drop-sub">.pdf or .pptx, up to 50 MB</div>
+            </div>
+          </div>
+
+          <div class="cta-stack">
+            <button class="btn btn-primary">Audit my deck</button>
+            <button class="btn btn-secondary">Try a sample audit</button>
+          </div>
+
+          <div class="proof-row">
+            <div class="proof-stat">
+              <div class="num">1M+</div>
+              <div class="lbl">Founders</div>
+            </div>
+            <div class="proof-stat">
+              <div class="num">$1B</div>
+              <div class="lbl">Raised</div>
+            </div>
+            <div class="proof-stat">
+              <div class="num">$15B</div>
+              <div class="lbl">Follow on</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="fab">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2">
+            <path d="M12 2L2 7l10 5 10-5-10-5z"/>
+            <path d="M2 17l10 5 10-5"/>
+            <path d="M2 12l10 5 10-5"/>
+          </svg>
+        </div>
+      </div>
+
+      <div class="phone-caption">Step 1 · Landing</div>
+    </div>
+
+    <div class="flow-arrow">›</div>
+
+    <!-- ============================================
+         STEP 2 — INITIAL REPORT
+         ============================================ -->
+    <div class="col">
+      <div class="step-label">
+        <div class="step-num">2</div>
+        <div>
+          <div class="step-text">Initial Report</div>
+          <div class="step-sub">The bad news, the headline issue</div>
+        </div>
+      </div>
+
+      <div class="phone">
+        <span class="side-btn mute"></span>
+        <span class="side-btn vup"></span>
+        <span class="side-btn vdown"></span>
+        <span class="side-btn power"></span>
+        <div class="island"></div>
+
+        <div class="screen">
+          <div class="status">
+            <span>9:41</span>
+            <div class="right">
+              <svg width="18" height="11" viewBox="0 0 18 11"><g fill="#fff">
+                <rect x="0" y="7" width="3" height="4" rx="0.5"/>
+                <rect x="5" y="5" width="3" height="6" rx="0.5"/>
+                <rect x="10" y="2" width="3" height="9" rx="0.5"/>
+                <rect x="15" y="0" width="3" height="11" rx="0.5"/>
+              </g></svg>
+              <svg width="17" height="12" viewBox="0 0 17 12" fill="#fff">
+                <path d="M8.5 0C5.4 0 2.5 1.1 0.3 3l1.4 1.4C3.6 2.7 5.9 1.8 8.5 1.8s4.9 0.9 6.8 2.6L16.7 3C14.5 1.1 11.6 0 8.5 0zm0 3.6c-2.2 0-4.2 0.8-5.8 2.2L4.1 7.2C5.3 6.1 6.8 5.4 8.5 5.4s3.2 0.7 4.4 1.8l1.4-1.4c-1.6-1.4-3.6-2.2-5.8-2.2zm0 3.6c-1.2 0-2.3 0.5-3.1 1.3L8.5 12l3.1-3.5c-0.8-0.8-1.9-1.3-3.1-1.3z"/>
+              </svg>
+              <svg width="27" height="12" viewBox="0 0 27 12">
+                <rect x="0.5" y="0.5" width="22" height="11" rx="3" fill="none" stroke="#fff" stroke-opacity="0.5" stroke-width="1"/>
+                <rect x="2" y="2" width="19" height="8" rx="1.5" fill="#fff"/>
+                <rect x="24" y="4" width="2" height="4" rx="1" fill="#fff" fill-opacity="0.5"/>
+              </svg>
+            </div>
+          </div>
+
+          <div class="eyebrow" style="margin-top: 14px;">YOUR AUDIT</div>
+          <h1>Polyheart Deck Audit</h1>
+
+          <div class="speech-wrap">
+            <div class="speech">
+              <span class="speech-quote-mark">&ldquo;</span>
+              <div class="speech-text"><strong>This deck has potential.</strong> The story is here, it is just buried under fixable mistakes. We can have it ready before your next investor meeting.</div>
+            </div>
+            <div class="speech-attr">
+              <span class="attr-text">WIL, FOUNDER @STARTUPS.COM</span>
+              <span class="attr-avatar"><img src="static/wil.jpg" alt=""></span>
+            </div>
+          </div>
+
+          <div class="divider"></div>
+
+          <div class="grade-card">
+            <div class="grade-eyebrow">INVESTOR GRADE</div>
+            <div class="grade-ring">
+              <svg viewBox="0 0 100 100">
+                <circle cx="50" cy="50" r="44" fill="none" stroke="rgba(255,255,255,0.06)" stroke-width="7"/>
+                <circle cx="50" cy="50" r="44" fill="none" stroke="#DC4A41" stroke-width="7" stroke-linecap="round" stroke-dasharray="110 276.5"/>
+              </svg>
+              <div class="grade-inner">
+                <div class="grade-letter">C-</div>
+                <div class="grade-caption">40 / 100</div>
+              </div>
+            </div>
+            <div class="grade-verdict">A good story, buried under fixable mistakes.</div>
+          </div>
+
+          <div class="stat-grid">
+            <div class="stat-cell warn">
+              <div class="num">48</div>
+              <div class="lbl">Problems</div>
+            </div>
+            <div class="stat-cell">
+              <div class="num">14</div>
+              <div class="lbl">Slides</div>
+            </div>
+            <div class="stat-cell good">
+              <div class="num">9</div>
+              <div class="lbl">Quick wins</div>
+            </div>
+          </div>
+
+          <div class="issue-callout">
+            <span class="issue-pill">Biggest issue</span>
+            <div class="issue-title">Your Market Size slide does not pass the credibility test.</div>
+            <div class="issue-body">We see a $48B TAM number with no source and no path from your wedge to that figure. Investors will mark this as a red flag in 10 seconds.</div>
+          </div>
+
+          <div class="cta-stack">
+            <button class="btn btn-primary">Show me the fix</button>
+            <button class="btn btn-secondary">Read the full audit</button>
+          </div>
+        </div>
+
+        <div class="fab">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2">
+            <path d="M12 2L2 7l10 5 10-5-10-5z"/>
+            <path d="M2 17l10 5 10-5"/>
+            <path d="M2 12l10 5 10-5"/>
+          </svg>
+        </div>
+      </div>
+
+      <div class="phone-caption">Step 2 · Initial Report</div>
+    </div>
+
+    <div class="flow-arrow">›</div>
+
+    <!-- ============================================
+         STEP 3 — SHOW MAGIC
+         ============================================ -->
+    <div class="col">
+      <div class="step-label">
+        <div class="step-num">3</div>
+        <div>
+          <div class="step-text">Show Magic</div>
+          <div class="step-sub">One fix, then upsell the rest</div>
+        </div>
+      </div>
+
+      <div class="phone">
+        <span class="side-btn mute"></span>
+        <span class="side-btn vup"></span>
+        <span class="side-btn vdown"></span>
+        <span class="side-btn power"></span>
+        <div class="island"></div>
+
+        <div class="screen">
+          <div class="status">
+            <span>9:41</span>
+            <div class="right">
+              <svg width="18" height="11" viewBox="0 0 18 11"><g fill="#fff">
+                <rect x="0" y="7" width="3" height="4" rx="0.5"/>
+                <rect x="5" y="5" width="3" height="6" rx="0.5"/>
+                <rect x="10" y="2" width="3" height="9" rx="0.5"/>
+                <rect x="15" y="0" width="3" height="11" rx="0.5"/>
+              </g></svg>
+              <svg width="17" height="12" viewBox="0 0 17 12" fill="#fff">
+                <path d="M8.5 0C5.4 0 2.5 1.1 0.3 3l1.4 1.4C3.6 2.7 5.9 1.8 8.5 1.8s4.9 0.9 6.8 2.6L16.7 3C14.5 1.1 11.6 0 8.5 0zm0 3.6c-2.2 0-4.2 0.8-5.8 2.2L4.1 7.2C5.3 6.1 6.8 5.4 8.5 5.4s3.2 0.7 4.4 1.8l1.4-1.4c-1.6-1.4-3.6-2.2-5.8-2.2zm0 3.6c-1.2 0-2.3 0.5-3.1 1.3L8.5 12l3.1-3.5c-0.8-0.8-1.9-1.3-3.1-1.3z"/>
+              </svg>
+              <svg width="27" height="12" viewBox="0 0 27 12">
+                <rect x="0.5" y="0.5" width="22" height="11" rx="3" fill="none" stroke="#fff" stroke-opacity="0.5" stroke-width="1"/>
+                <rect x="2" y="2" width="19" height="8" rx="1.5" fill="#fff"/>
+                <rect x="24" y="4" width="2" height="4" rx="1" fill="#fff" fill-opacity="0.5"/>
+              </svg>
+            </div>
+          </div>
+
+          <div class="eyebrow" style="margin-top: 14px;">FIX PREVIEW · MARKET SIZE</div>
+          <h1 class="fix-headline">Here's how we'd fix your Market Size slide.</h1>
+
+          <div class="ba-card before">
+            <span class="ba-label">Before</span>
+            <div class="ba-quote">"The pet wellness market is a <span class="stat">$48B opportunity</span> and we're going after it."</div>
+          </div>
+
+          <div class="ba-card after">
+            <span class="ba-label">After · Wil's rewrite</span>
+            <div class="ba-quote">"38M U.S. dog owners spend <span class="stat">$1,400 a year</span> on treats. If 1% switch to organic, that's a <span class="stat">$530M wedge</span> we own first."</div>
+          </div>
+
+          <div class="callout">
+            <div class="callout-title">Why this works.</div>
+            <div class="callout-body">A real wedge with a real number beats a vanity TAM every time. Now an investor knows exactly what we're winning, and why.</div>
+          </div>
+
+          <div class="magic-pull">
+            <div class="big">1 slide fixed. 47 to go.</div>
+            <div class="sm">We'll rewrite every one of them in your voice.</div>
+          </div>
+
+          <div class="cta-stack">
+       
