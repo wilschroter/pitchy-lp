@@ -1,0 +1,703 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Pitchy — Slide Editor (Mobile) Mockup</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Cormorant+Garamond:ital,wght@1,500;1,600;1,700&family=Lato:ital,wght@1,400;1,700&display=swap" rel="stylesheet">
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html, body {
+    background: #0a0b16;
+    min-height: 100vh;
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    -webkit-font-smoothing: antialiased;
+    color: #fff;
+  }
+
+  .artboard {
+    min-height: 100vh;
+    padding: 60px 40px 80px;
+  }
+  .artboard-header {
+    text-align: center;
+    margin-bottom: 50px;
+  }
+  .artboard-header .eyebrow-art {
+    color: #EE9A3B;
+    font-weight: 700;
+    font-size: 12px;
+    letter-spacing: 0.18em;
+    margin-bottom: 8px;
+  }
+  .artboard-header h2 {
+    font-size: 30px;
+    font-weight: 800;
+    letter-spacing: -0.02em;
+    margin-bottom: 8px;
+  }
+  .artboard-header p {
+    color: #8a8fa8;
+    font-size: 15px;
+    max-width: 640px;
+    margin: 0 auto;
+  }
+
+  .row {
+    display: flex;
+    justify-content: center;
+    gap: 56px;
+    flex-wrap: wrap;
+  }
+  .col {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  .step-label {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 22px;
+  }
+  .step-num {
+    width: 32px; height: 32px;
+    border-radius: 50%;
+    background: #EE7B3B;
+    color: #14152C;
+    font-weight: 800;
+    font-size: 14px;
+    display: flex; align-items: center; justify-content: center;
+  }
+  .step-text {
+    color: #fff;
+    font-weight: 700;
+    font-size: 17px;
+    letter-spacing: -0.01em;
+  }
+  .step-sub {
+    color: #6a6f8a;
+    font-size: 13px;
+    margin-top: 4px;
+    text-align: center;
+    max-width: 360px;
+  }
+
+  /* iPhone frame */
+  .phone {
+    position: relative;
+    width: 400px;
+    height: 850px;
+    background: #14152C;
+    border-radius: 60px;
+    border: 10px solid #1c1d2e;
+    box-shadow:
+      inset 0 0 0 2px #2a2b40,
+      0 40px 100px rgba(0,0,0,0.55),
+      0 10px 40px rgba(0,0,0,0.4);
+    overflow: hidden;
+  }
+  .side-btn { position: absolute; background: #1c1d2e; border-radius: 2px; }
+  .side-btn.mute  { left: -14px; top: 110px; width: 4px; height: 28px; }
+  .side-btn.vup   { left: -14px; top: 160px; width: 4px; height: 56px; }
+  .side-btn.vdown { left: -14px; top: 230px; width: 4px; height: 56px; }
+  .side-btn.power { right: -14px; top: 180px; width: 4px; height: 90px; }
+  .island {
+    position: absolute;
+    top: 14px; left: 50%;
+    transform: translateX(-50%);
+    width: 122px; height: 36px;
+    background: #000;
+    border-radius: 22px;
+    z-index: 20;
+  }
+
+  .screen {
+    position: absolute; inset: 0;
+    overflow-y: auto; overflow-x: hidden;
+    padding: 0 22px 28px;
+  }
+  .screen::-webkit-scrollbar { display: none; }
+
+  /* Status bar */
+  .status {
+    display: flex; justify-content: space-between; align-items: center;
+    padding: 18px 14px 0;
+    margin: 0 -8px;
+    height: 54px;
+    font-weight: 600; font-size: 16px;
+    color: #fff;
+  }
+  .status .right { display: flex; align-items: center; gap: 6px; }
+
+  /* Slide editor header: back arrow + breadcrumb + score gauge */
+  .se-top {
+    display: flex; align-items: center; gap: 10px;
+    margin-top: 14px; margin-bottom: 20px;
+  }
+  .se-back {
+    width: 36px; height: 36px;
+    border-radius: 50%;
+    background: rgba(255,255,255,0.05);
+    border: 1px solid rgba(255,255,255,0.10);
+    display: flex; align-items: center; justify-content: center;
+    color: #d9dbf0; font-size: 18px;
+    flex-shrink: 0;
+  }
+  .se-crumb { flex: 1; min-width: 0; }
+  .se-crumb-name {
+    font-size: 22px; font-weight: 800;
+    line-height: 1.1;
+    letter-spacing: -0.02em;
+    color: #fff;
+  }
+  .se-crumb-meta {
+    margin-top: 2px;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: #6a6f8a;
+  }
+  .se-score {
+    position: relative;
+    width: 64px; height: 64px;
+    flex-shrink: 0;
+  }
+  .se-score svg { width: 100%; height: 100%; transform: rotate(-90deg); }
+  .se-score .track { fill: none; stroke: rgba(255,255,255,0.08); stroke-width: 6; }
+  .se-score .fill  { fill: none; stroke: #EAB308; stroke-width: 6; stroke-linecap: round; }
+  .se-score .inner {
+    position: absolute; inset: 0;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 18px; font-weight: 800;
+    letter-spacing: -0.02em;
+    color: #fff;
+  }
+  .se-score .inner sup {
+    font-size: 10px; font-weight: 700;
+    opacity: 0.7;
+    margin-left: 1px;
+  }
+  .se-score-label {
+    margin-top: 4px;
+    text-align: center;
+    font-size: 9px;
+    font-weight: 700;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: #EAB308;
+  }
+
+  /* Tabs row — three pill buttons */
+  .se-tabs {
+    display: flex;
+    background: rgba(255,255,255,0.04);
+    border: 1px solid rgba(255,255,255,0.06);
+    border-radius: 999px;
+    padding: 4px;
+    margin-bottom: 22px;
+  }
+  .se-tab {
+    flex: 1;
+    padding: 8px 0;
+    border: 0;
+    background: transparent;
+    color: #8a8fa8;
+    font-family: inherit;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    border-radius: 999px;
+    cursor: pointer;
+  }
+  .se-tab.is-active {
+    background: #6366F1;
+    color: #fff;
+    font-weight: 700;
+  }
+
+  /* "What needs work" editorial section title */
+  .se-section-title {
+    display: inline-flex;
+    align-items: baseline;
+    gap: 12px;
+    position: relative;
+    padding-left: 16px;
+    margin-bottom: 16px;
+    font-family: 'Cormorant Garamond', Georgia, serif;
+    font-style: italic;
+    font-weight: 600;
+    font-size: 26px;
+    line-height: 1.1;
+    color: rgba(255,255,255,0.88);
+  }
+  .se-section-title::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    bottom: 6px;
+    width: 5px;
+    height: 20px;
+    background: #EE7B3B;
+    border-radius: 2px;
+  }
+
+  /* Wil speech bubble */
+  .speech-wrap { margin-bottom: 22px; }
+  .speech {
+    position: relative;
+    background: #F1EFE8;
+    border-radius: 22px;
+    padding: 22px 22px 22px 26px;
+    color: #2C2C2A;
+  }
+  .speech::after {
+    content: '';
+    position: absolute;
+    right: 40px;
+    bottom: -14px;
+    width: 22px; height: 22px;
+    background: #F1EFE8;
+    clip-path: polygon(0 0, 100% 0, 30% 100%);
+  }
+  .speech-quote-mark {
+    position: absolute;
+    top: 14px; left: 16px;
+    font-family: 'Cormorant Garamond', serif;
+    font-weight: 700;
+    font-size: 46px;
+    line-height: 1;
+    color: #EE7B3B;
+  }
+  .speech-text {
+    font-family: 'Lato', sans-serif;
+    font-style: italic;
+    font-weight: 400;
+    font-size: 19px;
+    line-height: 1.45;
+    color: #2C2C2A;
+    padding-left: 20px;
+  }
+  .speech-text strong {
+    font-weight: 700;
+    cursor: pointer;
+    transition: color 140ms ease;
+  }
+  .speech-text strong:hover { color: #2563EB; }
+  .speech-attr {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    gap: 10px;
+    margin-top: 16px;
+    padding-right: 4px;
+  }
+  .speech-attr .attr-avatar {
+    width: 26px; height: 26px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #c39d7b, #6b4a33);
+    border: 1.5px solid rgba(255,255,255,0.15);
+    overflow: hidden;
+    flex-shrink: 0;
+  }
+  .speech-attr .attr-text {
+    color: #9ca0e8;
+    font-size: 10.5px;
+    font-weight: 700;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+  }
+
+  /* Suggested Fixes header */
+  .fixes-head { margin-bottom: 12px; }
+  .fixes-title {
+    font-size: 18px;
+    font-weight: 800;
+    letter-spacing: -0.01em;
+    color: #fff;
+    margin-bottom: 3px;
+  }
+  .fixes-sub {
+    font-size: 12px;
+    color: #8a8fa8;
+  }
+
+  /* Suggested Fix cards */
+  .fix {
+    background: #20223C;
+    border: 1px solid rgba(255,255,255,0.06);
+    border-radius: 14px;
+    margin-bottom: 8px;
+    overflow: hidden;
+    transition: background 160ms ease, border-color 160ms ease, box-shadow 160ms ease;
+  }
+  .fix[data-rank="1"] { border-left: 3px solid #DC4A41; }
+  .fix[data-rank="2"] { border-left: 3px solid #D2A01E; }
+  .fix[data-rank="3"] { border-left: 3px solid #EE7B3B; }
+  .fix.is-open {
+    background: #262848;
+    border-color: rgba(255,255,255,0.12);
+  }
+  .fix-summary {
+    display: grid;
+    grid-template-columns: 28px 1fr auto;
+    gap: 12px;
+    align-items: center;
+    padding: 14px 14px 14px 12px;
+    cursor: pointer;
+  }
+  .fix-arrow {
+    font-size: 24px;
+    font-weight: 700;
+    line-height: 1;
+    transition: transform 220ms cubic-bezier(.2,.7,.2,1);
+  }
+  .fix[data-rank="1"] .fix-arrow { color: #DC4A41; }
+  .fix[data-rank="2"] .fix-arrow { color: #D2A01E; }
+  .fix[data-rank="3"] .fix-arrow { color: #EE7B3B; }
+  .fix.is-open .fix-arrow { transform: rotate(90deg); }
+  .fix-title-wrap {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    min-width: 0;
+  }
+  .fix-title {
+    font-family: 'Cormorant Garamond', Georgia, serif;
+    font-weight: 600;
+    font-size: 18px;
+    line-height: 1.2;
+    color: #fff;
+    letter-spacing: -0.005em;
+  }
+  .fix-rule {
+    font-size: 9.5px;
+    font-weight: 700;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    opacity: 0.75;
+  }
+  .fix[data-rank="1"] .fix-rule { color: #DC4A41; }
+  .fix[data-rank="2"] .fix-rule { color: #D2A01E; }
+  .fix[data-rank="3"] .fix-rule { color: #EE7B3B; }
+  .fix-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 5px 5px;
+    border: 1px solid #EE7B3B;
+    background: #EE7B3B;
+    color: #fff;
+    border-radius: 999px;
+    font-family: inherit;
+    font-size: 12px;
+    font-weight: 600;
+    cursor: pointer;
+    box-shadow: 0 3px 10px rgba(238,123,59,0.30);
+  }
+  .fix-btn-icon {
+    width: 18px; height: 18px;
+    border-radius: 50%;
+    background: rgba(255,255,255,0.22);
+    display: inline-flex; align-items: center; justify-content: center;
+    font-size: 13px; font-weight: 700; line-height: 1;
+  }
+  .fix.is-added .fix-btn {
+    background: transparent;
+    color: #EE7B3B;
+  }
+  .fix.is-added .fix-btn-icon { background: #EE7B3B; color: #fff; }
+  .fix.is-added .fix-btn-label::before { content: 'Added'; }
+  .fix:not(.is-added) .fix-btn-label::before { content: 'Fix This'; }
+  .fix-body {
+    padding: 0 16px 16px 52px;
+    color: #b4b8cc;
+    font-size: 13px;
+    line-height: 1.55;
+    display: none;
+  }
+  .fix.is-open .fix-body { display: block; }
+  .fix-body p { margin: 0 0 12px; }
+
+  /* Slide citation */
+  .fix-cite-eyebrow {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    padding: 3px 8px 3px 5px;
+    margin-bottom: 6px;
+    background: rgba(238,123,59,0.10);
+    color: #EE7B3B;
+    border: 1px solid rgba(238,123,59,0.30);
+    border-radius: 999px;
+    font-size: 9px;
+    font-weight: 700;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    line-height: 1;
+  }
+  .fix-quote {
+    margin: 0;
+    padding: 10px 13px;
+    background: rgba(255,255,255,0.04);
+    border-left: 3px solid #EE7B3B;
+    border-radius: 0 8px 8px 0;
+    font-family: 'Cormorant Garamond', serif;
+    font-style: italic;
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 1.5;
+    color: #d9dbf0;
+  }
+
+  /* "Give me way too much feedback" button */
+  .feedback-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 7px 14px 7px 8px;
+    border: 1px solid rgba(255,255,255,0.12);
+    background: rgba(255,255,255,0.03);
+    border-radius: 999px;
+    color: #b4b8cc;
+    font-family: inherit;
+    font-size: 12.5px;
+    font-weight: 600;
+    cursor: pointer;
+    margin-top: 14px;
+    margin-bottom: 22px;
+  }
+  .feedback-btn-chev {
+    display: inline-flex;
+    width: 18px; height: 18px;
+    align-items: center; justify-content: center;
+    background: #20223C;
+    border-radius: 50%;
+    font-size: 14px;
+    color: #b4b8cc;
+  }
+
+  /* Floating bottom */
+  .fab {
+    position: absolute;
+    bottom: 14px; left: 50%;
+    transform: translateX(-50%);
+    width: 60px; height: 38px;
+    background: rgba(99,102,241,0.30);
+    backdrop-filter: blur(10px);
+    border-radius: 20px;
+    display: flex; align-items: center; justify-content: center;
+    z-index: 30;
+    border: 1px solid rgba(255,255,255,0.06);
+  }
+
+  .phone-caption {
+    position: absolute;
+    bottom: -36px;
+    left: 0; right: 0;
+    text-align: center;
+    color: #5a5e7a;
+    font-size: 11px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+  }
+
+</style>
+</head>
+<body>
+
+<div class="artboard">
+
+  <div class="artboard-header">
+    <div class="eyebrow-art">PITCHY · SLIDE EDITOR · MOBILE</div>
+    <h2>Slide 2 — Problem Statement, in the LP style</h2>
+    <p>Same data as <code>/report/b03d850d9ac4/slide/2#assessment</code>, retouched in the LP design language: hero typography, Cormorant Garamond italic editorial header, Wil speech bubble with Lato italic body, rank-tinted suggested fixes.</p>
+  </div>
+
+  <div class="row">
+
+    <div class="col">
+      <div class="step-label">
+        <div class="step-num">1</div>
+        <div>
+          <div class="step-text">Assessment view</div>
+          <div class="step-sub">Score gauge, speech, three fixes</div>
+        </div>
+      </div>
+
+      <div class="phone">
+        <span class="side-btn mute"></span>
+        <span class="side-btn vup"></span>
+        <span class="side-btn vdown"></span>
+        <span class="side-btn power"></span>
+        <div class="island"></div>
+
+        <div class="screen">
+          <div class="status">
+            <span>9:41</span>
+            <div class="right">
+              <svg width="18" height="11" viewBox="0 0 18 11"><g fill="#fff">
+                <rect x="0" y="7" width="3" height="4" rx="0.5"/>
+                <rect x="5" y="5" width="3" height="6" rx="0.5"/>
+                <rect x="10" y="2" width="3" height="9" rx="0.5"/>
+                <rect x="15" y="0" width="3" height="11" rx="0.5"/>
+              </g></svg>
+              <svg width="27" height="12" viewBox="0 0 27 12">
+                <rect x="0.5" y="0.5" width="22" height="11" rx="3" fill="none" stroke="#fff" stroke-opacity="0.5" stroke-width="1"/>
+                <rect x="2" y="2" width="19" height="8" rx="1.5" fill="#fff"/>
+              </svg>
+            </div>
+          </div>
+
+          <!-- HEADER: back arrow / title-meta / score gauge -->
+          <div class="se-top">
+            <div class="se-back">←</div>
+            <div class="se-crumb">
+              <div class="se-crumb-name">Problem Statement</div>
+              <div class="se-crumb-meta">PS · Slide 2 of 14</div>
+            </div>
+            <div>
+              <div class="se-score">
+                <svg viewBox="0 0 80 80">
+                  <circle class="track" cx="40" cy="40" r="34"/>
+                  <circle class="fill"  cx="40" cy="40" r="34"
+                          stroke-dasharray="213.6" stroke-dashoffset="44.9"/>
+                </svg>
+                <div class="inner">79<sup>%</sup></div>
+              </div>
+              <div class="se-score-label">Pretty Close</div>
+            </div>
+          </div>
+
+          <!-- TABS -->
+          <div class="se-tabs">
+            <button class="se-tab is-active">Assessment</button>
+            <button class="se-tab">Interview</button>
+            <button class="se-tab">Rewrite</button>
+          </div>
+
+          <!-- WHAT NEEDS WORK -->
+          <div class="se-section-title">What needs work</div>
+
+          <!-- WIL SPEECH BUBBLE -->
+          <div class="speech-wrap">
+            <div class="speech">
+              <div class="speech-quote-mark">&ldquo;</div>
+              <div class="speech-text">
+                <strong>It&apos;s way too dense.</strong>
+                Four components crammed into bullets when this should land in one clean sentence.
+                <strong>Buyer is buried at the bottom</strong>,
+                and there&apos;s <strong>no Market Size anywhere</strong>.
+              </div>
+            </div>
+            <div class="speech-attr">
+              <span class="attr-text">Wil, Founder @Startups.com</span>
+              <span class="attr-avatar"></span>
+            </div>
+          </div>
+
+          <!-- SUGGESTED FIXES HEADER -->
+          <div class="fixes-head">
+            <div class="fixes-title">Suggested Fixes</div>
+            <div class="fixes-sub">Expand to learn more, add items you want to fix</div>
+          </div>
+
+          <!-- FIX 1 (open + added) -->
+          <div class="fix is-open is-added" data-rank="1">
+            <div class="fix-summary">
+              <span class="fix-arrow">›</span>
+              <div class="fix-title-wrap">
+                <div class="fix-title">It&apos;s way too dense</div>
+                <div class="fix-rule">PS-COMPOSED</div>
+              </div>
+              <button class="fix-btn">
+                <span class="fix-btn-icon">✓</span>
+                <span class="fix-btn-label"></span>
+              </button>
+            </div>
+            <div class="fix-body">
+              <p>All four pieces of a Problem Statement are on the slide. Customer, current behavior, failure modes are all here. But they&apos;re split across a headline, three bullet groups, and a footer, so investors read this as four separate ideas instead of one punchy problem.</p>
+              <span class="fix-cite-eyebrow">
+                <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="14" rx="2"/><line x1="3" y1="9" x2="21" y2="9"/></svg>
+                On your slide
+              </span>
+              <blockquote class="fix-quote">&ldquo;Critical ocean infrastructure lacks real-time monitoring.&rdquo;</blockquote>
+            </div>
+          </div>
+
+          <!-- FIX 2 -->
+          <div class="fix" data-rank="2">
+            <div class="fix-summary">
+              <span class="fix-arrow">›</span>
+              <div class="fix-title-wrap">
+                <div class="fix-title">Buyer is buried at the bottom</div>
+                <div class="fix-rule">PS-CUSTOMER</div>
+              </div>
+              <button class="fix-btn">
+                <span class="fix-btn-icon">+</span>
+                <span class="fix-btn-label"></span>
+              </button>
+            </div>
+          </div>
+
+          <!-- FIX 3 -->
+          <div class="fix" data-rank="3">
+            <div class="fix-summary">
+              <span class="fix-arrow">›</span>
+              <div class="fix-title-wrap">
+                <div class="fix-title">No Market Size anywhere</div>
+                <div class="fix-rule">PS-DOLLAR</div>
+              </div>
+              <button class="fix-btn">
+                <span class="fix-btn-icon">+</span>
+                <span class="fix-btn-label"></span>
+              </button>
+            </div>
+          </div>
+
+          <!-- FEEDBACK BUTTON -->
+          <button class="feedback-btn">
+            <span class="feedback-btn-chev">›</span>
+            Give me way too much feedback
+          </button>
+
+        </div>
+
+        <div class="fab">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2">
+            <rect x="3" y="3" width="18" height="18" rx="3"/>
+            <line x1="3" y1="9" x2="21" y2="9"/>
+          </svg>
+        </div>
+
+        <div class="phone-caption">Assessment · PS</div>
+      </div>
+    </div>
+
+  </div>
+
+</div>
+
+<script>
+  // Light click handling to expand/collapse fix cards
+  document.querySelectorAll('.fix-summary').forEach(function(s) {
+    s.addEventListener('click', function(e) {
+      if (e.target.closest('.fix-btn')) return;
+      s.closest('.fix').classList.toggle('is-open');
+    });
+  });
+  document.querySelectorAll('.fix-btn').forEach(function(b) {
+    b.addEventListener('click', function(e) {
+      e.stopPropagation();
+      b.closest('.fix').classList.toggle('is-added');
+    });
+  });
+</script>
+
+</body>
+</html>

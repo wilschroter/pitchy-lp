@@ -208,23 +208,26 @@
     margin: 0 -22px 18px;
   }
 
-  /* Indigo callout */
+  /* 'Why this works' card on Step 5 — mirrors the 'What's Wrong' card on Step 4 */
   .callout {
-    background: rgba(99, 102, 241, 0.14);
-    border: 1px solid rgba(99, 102, 241, 0.22);
-    border-radius: 18px;
-    padding: 20px;
-    margin-bottom: 18px;
+    background: #1a1c33;
+    border: 1px solid rgba(255,255,255,0.06);
+    border-radius: 16px;
+    padding: 16px 18px 18px;
+    margin-bottom: 14px;
   }
   .callout-title {
-    color: #EE7B3B;
-    font-weight: 700; font-size: 16px;
-    line-height: 1.35;
+    color: #6fdde2;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
     margin-bottom: 12px;
   }
   .callout-body {
     color: #d9dbf0;
-    font-size: 14.5px; line-height: 1.45;
+    font-size: 15px;
+    line-height: 1.5;
   }
 
   /* CTA stack */
@@ -383,6 +386,25 @@
   /* =========================================================
      SCREEN 1 — Landing
      ========================================================= */
+  /* Startups.com wordmark — absolutely positioned so it fills the blank
+     space above the headline without pushing anything down */
+  .s-logo {
+    position: absolute;
+    top: 62px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: #EE3F22;
+    color: #fff;
+    font-family: 'Inter', sans-serif;
+    font-weight: 800;
+    font-size: 12.5px;
+    letter-spacing: -0.025em;
+    padding: 5px 13px;
+    border-radius: 4px;
+    z-index: 5;
+    line-height: 1.2;
+  }
+
   /* Screen 1 only — dark-to-navy hero gradient + bottom-anchored proof row */
   .screen-landing {
     background: linear-gradient(180deg, #04050E 0%, #0A0B1C 18%, #14152C 36%);
@@ -457,6 +479,139 @@
     border-radius: 50%;
     background: #22B2BA;
   }
+  /* 'Here's what you get' outcome strip on Step 1 */
+  .outcomes {
+    margin: 18px 0 6px;
+  }
+  .outcomes-head {
+    color: #8a8fa8;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    margin-bottom: 12px;
+    text-align: center;
+  }
+  .outcome-row {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 8px 4px;
+    color: #d9dbf0;
+    font-size: 13.5px;
+    line-height: 1.4;
+  }
+  .outcome-ico {
+    width: 26px;
+    height: 26px;
+    flex-shrink: 0;
+    border-radius: 7px;
+    background: rgba(238,123,59,0.14);
+    border: 1px solid rgba(238,123,59,0.24);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #EE7B3B;
+  }
+  /* 'Why trust our advice?' expandable above the proof row */
+  .trust-trigger {
+    background: transparent;
+    border: 0;
+    color: #8a8fa8;
+    font-size: 12px;
+    font-weight: 600;
+    font-family: inherit;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    cursor: pointer;
+    padding: 8px 4px;
+    margin: 0 auto;
+    transition: color 150ms ease;
+  }
+  .trust-trigger:hover { color: #d9dbf0; }
+  .trust-chev {
+    transition: transform 200ms ease;
+  }
+  .trust-trigger.is-open .trust-chev {
+    transform: rotate(90deg);
+  }
+  .trust-block {
+    display: none;
+    background: #1a1c33;
+    border: 1px solid rgba(255,255,255,0.06);
+    border-radius: 14px;
+    padding: 14px 16px;
+    margin: 4px 0 14px;
+  }
+  .trust-block.is-on {
+    display: block;
+    animation: trustFade 400ms ease;
+  }
+  @keyframes trustFade {
+    from { opacity: 0; transform: translateY(-4px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+  .trust-head {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 12px;
+  }
+  .trust-avatar {
+    width: 40px; height: 40px;
+    border-radius: 50%;
+    overflow: hidden;
+    flex-shrink: 0;
+    background: #2a2b48;
+    border: 1.5px solid rgba(255,255,255,0.12);
+  }
+  .trust-avatar img { width: 100%; height: 100%; object-fit: cover; display: block; }
+  .trust-name { color: #fff; font-size: 14px; font-weight: 700; }
+  .trust-role { color: #8a8fa8; font-size: 12px; margin-top: 2px; }
+  .trust-body {
+    padding: 4px 0 0;
+  }
+  .trust-body p {
+    color: #d9dbf0;
+    font-size: 13.5px;
+    line-height: 1.55;
+    margin-bottom: 10px;
+  }
+  .trust-body p:last-child { margin-bottom: 0; }
+  .trust-body strong {
+    color: #fff;
+    font-weight: 700;
+  }
+  .trust-body .money {
+    color: #EE7B3B;
+    font-weight: 700;
+  }
+  .trust-body .brand {
+    color: #fff;
+    font-weight: 700;
+    letter-spacing: -0.005em;
+  }
+  .trust-row-info {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    margin-bottom: 8px;
+  }
+  .trust-row-info:last-child { margin-bottom: 0; }
+  .trust-label {
+    color: #8a8fa8;
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+  }
+  .trust-items {
+    color: #d9dbf0;
+    font-size: 13px;
+    font-weight: 500;
+  }
+
   .proof-row {
     display: flex; justify-content: space-between;
     text-align: center;
@@ -546,6 +701,15 @@
   .speech-attr .attr-avatar img {
     width: 100%; height: 100%; object-fit: cover; display: block;
   }
+  /* Investor avatar — generic silhouette instead of Wil photo */
+  .speech-attr .attr-avatar-investor {
+    background: linear-gradient(135deg, #4a5568, #2d3748);
+    color: #cbd5e0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .speech-attr .attr-avatar-investor svg { width: 14px; height: 14px; }
 
   /* =========================================================
      SCREEN 1 — Upload progress (post-click state)
@@ -816,6 +980,752 @@
     transform: translateY(10px);
   }
 
+  /* Inline annotations on the 'What you wrote' quote (Step 4) */
+  .annotated {
+    text-decoration: underline wavy #DC4A41;
+    text-decoration-skip-ink: none;
+    text-underline-offset: 4px;
+    cursor: pointer;
+    border-radius: 3px;
+    padding: 0 2px;
+    transition: background 150ms ease;
+  }
+  .annotated:hover { background: rgba(220, 74, 65, 0.10); }
+  .annotated.is-active { background: rgba(220, 74, 65, 0.22); }
+  .wyw-hint {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-top: 14px;
+    font-size: 11.5px;
+    color: #ff8a82;
+    font-weight: 600;
+  }
+  .wyw-hint.is-hidden { display: none; }
+  .wyw-issue {
+    display: none;
+    margin-top: 14px;
+    padding: 12px 14px;
+    background: rgba(220, 74, 65, 0.12);
+    border-radius: 10px;
+  }
+  .wyw-issue.is-on {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+  }
+  .wyw-issue .x {
+    flex-shrink: 0;
+    width: 18px;
+    height: 18px;
+    border-radius: 4px;
+    background: rgba(220, 74, 65, 0.28);
+    color: #ff8a82;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 800;
+    font-size: 13px;
+    margin-top: 1px;
+  }
+  .wyw-issue-text {
+    color: #fff;
+    font-size: 14px;
+    line-height: 1.45;
+  }
+
+  /* Slide-name highlight — every time we reference a canonical slide
+     (Market Size, Problem, Solution, etc.) it pops in brand orange. */
+  .slide-name { color: #EE7B3B; }
+
+  /* Diagnosis cards on Steps 4 and 5 — same layout, color theme signals intent.
+     'What's Wrong' (gold) for the problems, 'Why this works' (teal) for the fixes. */
+  .whats-wrong {
+    background: rgba(220, 74, 65, 0.16);
+    border: 1px solid rgba(220, 74, 65, 0.32);
+    border-radius: 16px;
+    padding: 16px 18px 18px;
+    margin-bottom: 14px;
+  }
+  .whats-right {
+    background: rgba(34, 178, 186, 0.13);
+    border: 1px solid rgba(34, 178, 186, 0.32);
+    border-radius: 16px;
+    padding: 16px 18px 18px;
+    margin-bottom: 14px;
+  }
+  .ww-title {
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    margin-bottom: 12px;
+  }
+  .whats-wrong .ww-title { color: #ff8a82; }
+  .whats-right .ww-title { color: #6fdde2; }
+  .ww-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+  .ww-list li {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    margin-bottom: 12px;
+    color: #fff;
+    font-size: 15px;
+    line-height: 1.5;
+  }
+  .ww-list li:last-child { margin-bottom: 0; }
+  .ww-icon {
+    width: 16px;
+    height: 16px;
+    flex-shrink: 0;
+    margin-top: 4px;
+  }
+  .whats-wrong .ww-icon { color: #DC4A41; }
+  .whats-right .ww-icon { color: #22B2BA; }
+
+  /* Suggest Rewrite button — primary look, sits inline between Before and After */
+  .suggest-btn {
+    display: block;
+    width: 100%;
+    text-align: center;
+    border: 0;
+    padding: 14px 22px;
+    border-radius: 999px;
+    font-weight: 700;
+    font-size: 15px;
+    cursor: pointer;
+    font-family: inherit;
+    margin-bottom: 18px;
+    background: linear-gradient(180deg, #F4A45A 0%, #EE7B3B 100%);
+    color: #1a1c33;
+    box-shadow: 0 4px 12px rgba(238,123,59,0.35);
+    transition: filter 120ms ease, transform 100ms ease;
+  }
+  .suggest-btn:hover { filter: brightness(1.05); }
+  .suggest-btn:active { transform: scale(0.985); }
+
+  /* The After + Why + Apply tracker stay hidden until 'Suggest Rewrite' is clicked */
+  .rewrite-wrap { display: none; }
+  .rewrite-wrap.is-revealed {
+    display: block;
+    animation: revealFade 450ms ease;
+  }
+  @keyframes revealFade {
+    from { opacity: 0; transform: translateY(8px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  /* =========================================================
+     SCREEN 6 — Audit ready / unlock paywall
+     ========================================================= */
+  .ready-screen {
+    display: flex;
+    flex-direction: column;
+    padding-top: 22px;
+  }
+  .ready-badge {
+    align-self: center;
+    background: rgba(34,178,186,0.16);
+    border: 1px solid rgba(34,178,186,0.32);
+    color: #6fdde2;
+    font-size: 10.5px;
+    font-weight: 700;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    padding: 6px 12px;
+    border-radius: 999px;
+    margin-bottom: 18px;
+  }
+  .ready-screen h1 {
+    text-align: center;
+    font-size: 28px;
+    font-weight: 800;
+    line-height: 1.1;
+    letter-spacing: -0.02em;
+    margin-bottom: 8px;
+  }
+  .ready-screen .sub {
+    text-align: center;
+    color: #b4b8cc;
+    font-size: 14.5px;
+    line-height: 1.45;
+    margin-bottom: 22px;
+    max-width: 320px;
+    align-self: center;
+  }
+  .locked-preview {
+    background: #1a1c33;
+    border: 1px solid rgba(255,255,255,0.06);
+    border-radius: 18px;
+    padding: 16px;
+    margin-bottom: 18px;
+    position: relative;
+    overflow: hidden;
+  }
+  .preview-head {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    padding-bottom: 14px;
+    border-bottom: 1px solid rgba(255,255,255,0.06);
+    margin-bottom: 14px;
+  }
+  .preview-grade {
+    width: 48px; height: 48px;
+    border-radius: 12px;
+    background: rgba(220, 74, 65, 0.16);
+    border: 1px solid rgba(220, 74, 65, 0.32);
+    display: flex; align-items: center; justify-content: center;
+    color: #fff;
+    font-size: 22px;
+    font-weight: 800;
+    letter-spacing: -0.02em;
+  }
+  .preview-stats {
+    display: flex; flex-direction: column;
+    gap: 2px;
+  }
+  .preview-stat-main {
+    color: #fff;
+    font-size: 14px;
+    font-weight: 700;
+  }
+  .preview-stat-sub {
+    color: #8a8fa8;
+    font-size: 12px;
+  }
+  .preview-list {
+    display: flex; flex-direction: column;
+    gap: 2px;
+  }
+  .preview-row {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 9px 4px;
+    border-radius: 8px;
+  }
+  .preview-row .ico {
+    width: 18px; height: 18px;
+    flex-shrink: 0;
+    display: flex; align-items: center; justify-content: center;
+  }
+  .preview-row .text {
+    flex: 1;
+    color: #d9dbf0;
+    font-size: 13.5px;
+    font-weight: 600;
+  }
+  .preview-row .tag {
+    color: #22B2BA;
+    font-size: 9.5px;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+  }
+  .preview-row-locked .text {
+    color: #6a6f8a;
+  }
+  .preview-row-locked .ico {
+    color: #6a6f8a;
+  }
+  .preview-row-open .ico {
+    color: #22B2BA;
+  }
+
+  /* =========================================================
+     SCREEN 6 — Account creation (email + social)
+     ========================================================= */
+  .account-screen {
+    padding-top: 78px;
+  }
+  .account-screen h1 {
+    font-size: 36px;
+    font-weight: 800;
+    line-height: 1.08;
+    letter-spacing: -0.03em;
+    text-align: center;
+    color: #fff;
+    margin-bottom: 12px;
+    padding: 0 8px;
+  }
+  .account-screen .sub {
+    text-align: center;
+    color: #8a8fa8;
+    font-size: 13.5px;
+    margin-bottom: 22px;
+    max-width: 280px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  .account-perks {
+    background: #1a1c33;
+    border: 1px solid rgba(255,255,255,0.06);
+    border-radius: 14px;
+    padding: 14px 16px;
+    margin-bottom: 22px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+  .perk-row {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    color: #d9dbf0;
+    font-size: 13.5px;
+    line-height: 1.35;
+  }
+  .perk-ico {
+    width: 22px;
+    height: 22px;
+    flex-shrink: 0;
+    border-radius: 6px;
+    background: rgba(34, 178, 186, 0.16);
+    color: #22B2BA;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .signup-form {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-bottom: 18px;
+  }
+  .account-input {
+    width: 100%;
+    background: #1a1c33;
+    border: 1px solid rgba(255,255,255,0.10);
+    border-radius: 12px;
+    padding: 15px 18px;
+    color: #fff;
+    font-size: 15px;
+    font-family: inherit;
+    transition: border-color 120ms ease;
+  }
+  .account-input:focus {
+    outline: none;
+    border-color: rgba(238,123,59,0.50);
+  }
+  .account-input::placeholder { color: #6a6f8a; }
+  .or-divider {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin: 6px 0 14px;
+  }
+  .or-rule {
+    flex: 1;
+    height: 1px;
+    background: rgba(255,255,255,0.10);
+  }
+  .or-text {
+    font-size: 10.5px;
+    font-weight: 700;
+    color: #8a8fa8;
+    letter-spacing: 0.18em;
+  }
+  .social-buttons {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    margin-bottom: 20px;
+  }
+  .social-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    width: 100%;
+    background: #1a1c33;
+    border: 1px solid rgba(255,255,255,0.10);
+    border-radius: 999px;
+    padding: 14px 22px;
+    color: #fff;
+    font-family: inherit;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 150ms ease, border-color 150ms ease;
+  }
+  .social-btn:hover {
+    background: #20223C;
+    border-color: rgba(255,255,255,0.18);
+  }
+  .social-btn .ico {
+    width: 18px;
+    height: 18px;
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .legal-line {
+    text-align: center;
+    color: #6a6f8a;
+    font-size: 11px;
+    line-height: 1.5;
+  }
+
+  /* =========================================================
+     SCREEN 7 — Interstitial: creating your Startups.com account
+     ========================================================= */
+  .interstitial-screen {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding-top: 130px;
+    text-align: center;
+  }
+  .interstitial-screen .big-logo {
+    background: #EE3F22;
+    color: #fff;
+    font-family: 'Inter', sans-serif;
+    font-weight: 800;
+    font-size: 18px;
+    letter-spacing: -0.025em;
+    padding: 9px 22px;
+    border-radius: 6px;
+    margin-bottom: 28px;
+    line-height: 1.2;
+  }
+  .interstitial-screen h1 {
+    font-size: 22px;
+    font-weight: 800;
+    line-height: 1.2;
+    color: #fff;
+    margin-bottom: 8px;
+    letter-spacing: -0.02em;
+  }
+  .interstitial-screen .sub {
+    color: #8a8fa8;
+    font-size: 13.5px;
+    line-height: 1.45;
+    max-width: 280px;
+    margin-bottom: 28px;
+  }
+  .setup-steps {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    width: 100%;
+    max-width: 280px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+  .setup-step {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 10px 14px;
+    background: #1a1c33;
+    border: 1px solid rgba(255,255,255,0.06);
+    border-radius: 12px;
+    color: #b4b8cc;
+    font-size: 13px;
+    font-weight: 600;
+  }
+  .setup-step.done {
+    color: #d9dbf0;
+    border-color: rgba(34,178,186,0.20);
+  }
+  .setup-step.active {
+    color: #fff;
+    border-color: rgba(238,123,59,0.32);
+    background: #1f2240;
+  }
+  .setup-step .step-ico {
+    width: 20px; height: 20px;
+    flex-shrink: 0;
+    display: flex; align-items: center; justify-content: center;
+  }
+  .setup-step.done .step-ico { color: #22B2BA; }
+  .setup-step.active .step-ico {
+    width: 14px; height: 14px;
+    border: 2px solid rgba(238,123,59,0.30);
+    border-top-color: #EE7B3B;
+    border-radius: 50%;
+    animation: spin 0.8s linear infinite;
+  }
+  .setup-step.pending .step-ico {
+    width: 6px; height: 6px;
+    background: rgba(255,255,255,0.15);
+    border-radius: 50%;
+  }
+
+  /* =========================================================
+     SCREEN 8 — Workspace experience (post-login, inside Startups.com)
+     ========================================================= */
+  .workspace-screen {
+    background: #0e0f1c;
+  }
+  .ws-bar {
+    position: sticky;
+    top: 0;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px 18px;
+    background: #14152C;
+    border-bottom: 1px solid rgba(255,255,255,0.06);
+    z-index: 10;
+    margin-top: 8px;
+  }
+  .ws-bar-left {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .ws-bar-logo {
+    background: #EE3F22;
+    color: #fff;
+    font-weight: 800;
+    font-size: 10.5px;
+    letter-spacing: -0.02em;
+    padding: 3px 8px;
+    border-radius: 3px;
+    line-height: 1.2;
+  }
+  .ws-bar-app {
+    color: #8a8fa8;
+    font-size: 11.5px;
+    font-weight: 600;
+    letter-spacing: 0.04em;
+  }
+  .ws-bar-app .pitchy {
+    color: #fff;
+    font-weight: 800;
+  }
+  .ws-bar-avatar {
+    width: 26px; height: 26px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #6366F1, #4A4DB3);
+    color: #fff;
+    font-size: 11px;
+    font-weight: 800;
+    display: flex; align-items: center; justify-content: center;
+  }
+  .ws-content {
+    padding: 18px 18px 24px;
+  }
+  .ws-greet {
+    margin-bottom: 16px;
+  }
+  .ws-greet h1 {
+    color: #fff;
+    font-size: 22px;
+    font-weight: 800;
+    letter-spacing: -0.02em;
+    margin-bottom: 4px;
+  }
+  .ws-greet .meta {
+    color: #8a8fa8;
+    font-size: 12.5px;
+  }
+  .ws-summary {
+    display: flex;
+    gap: 12px;
+    background: #1a1c33;
+    border: 1px solid rgba(255,255,255,0.06);
+    border-radius: 14px;
+    padding: 14px 16px;
+    margin-bottom: 16px;
+    align-items: center;
+  }
+  .ws-grade {
+    width: 50px; height: 50px;
+    border-radius: 12px;
+    background: rgba(220, 74, 65, 0.16);
+    border: 1px solid rgba(220, 74, 65, 0.32);
+    display: flex; align-items: center; justify-content: center;
+    color: #fff;
+    font-size: 22px;
+    font-weight: 800;
+    letter-spacing: -0.02em;
+    flex-shrink: 0;
+  }
+  .ws-summary-meta {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+  }
+  .ws-summary-main {
+    color: #fff;
+    font-size: 13.5px;
+    font-weight: 700;
+  }
+  .ws-summary-sub {
+    color: #8a8fa8;
+    font-size: 12px;
+  }
+  .ws-section-title {
+    color: #8a8fa8;
+    font-size: 10.5px;
+    font-weight: 700;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    margin-bottom: 10px;
+  }
+  .ws-issue-list {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    margin-bottom: 18px;
+  }
+  .ws-issue {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 11px 14px;
+    background: #1a1c33;
+    border: 1px solid rgba(255,255,255,0.06);
+    border-radius: 12px;
+    color: #fff;
+    font-size: 13.5px;
+  }
+  .ws-issue .num {
+    width: 22px; height: 22px;
+    border-radius: 5px;
+    background: rgba(34,178,186,0.16);
+    color: #6fdde2;
+    font-size: 11px;
+    font-weight: 800;
+    display: flex; align-items: center; justify-content: center;
+    flex-shrink: 0;
+  }
+  .ws-issue.is-locked {
+    opacity: 0.55;
+  }
+  .ws-issue.is-locked .num {
+    background: rgba(255,255,255,0.05);
+    color: #6a6f8a;
+  }
+  .ws-issue .ws-issue-text { flex: 1; }
+  .ws-issue .chev {
+    color: #6a6f8a;
+    font-size: 16px;
+  }
+  .ws-issue.is-locked .chev {
+    color: #6a6f8a;
+  }
+  .ws-issue.is-locked .ws-issue-text {
+    color: #8a8fa8;
+  }
+  .ws-paywall {
+    background: linear-gradient(180deg, rgba(238,123,59,0.18) 0%, rgba(192, 80, 30, 0.10) 100%);
+    border: 1px solid rgba(238,123,59,0.32);
+    border-radius: 16px;
+    padding: 16px 18px 18px;
+    text-align: center;
+  }
+  .ws-paywall-title {
+    color: #fff;
+    font-size: 16px;
+    font-weight: 800;
+    letter-spacing: -0.01em;
+    margin-bottom: 6px;
+  }
+  .ws-paywall-body {
+    color: #d9dbf0;
+    font-size: 13px;
+    line-height: 1.45;
+    margin-bottom: 14px;
+  }
+  .ws-paywall .price {
+    color: #EE7B3B;
+    font-weight: 800;
+  }
+  .ws-paywall .btn {
+    margin-top: 4px;
+  }
+
+  /* (legacy email capture styles retained below in case re-introduced) */
+  .email-screen {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    padding-top: 50px;
+  }
+  .email-screen .icon-wrap {
+    width: 60px; height: 60px;
+    border-radius: 16px;
+    background: rgba(99, 102, 241, 0.16);
+    border: 1px solid rgba(99, 102, 241, 0.28);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 22px;
+    color: #9ca0e8;
+  }
+  .email-screen h1 {
+    font-size: 26px;
+    font-weight: 800;
+    letter-spacing: -0.02em;
+    line-height: 1.15;
+    margin-bottom: 12px;
+    text-align: center;
+  }
+  .email-screen .sub {
+    color: #b4b8cc;
+    font-size: 14.5px;
+    line-height: 1.5;
+    margin-bottom: 26px;
+    max-width: 300px;
+  }
+  .email-form {
+    width: 100%;
+    max-width: 320px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+  .email-input {
+    width: 100%;
+    background: #1a1c33;
+    border: 1px solid rgba(255,255,255,0.10);
+    border-radius: 12px;
+    padding: 16px 18px;
+    color: #fff;
+    font-size: 15px;
+    font-family: inherit;
+    transition: border-color 120ms ease;
+  }
+  .email-input:focus {
+    outline: none;
+    border-color: rgba(238,123,59,0.50);
+  }
+  .email-input::placeholder { color: #6a6f8a; }
+  .email-tiny {
+    margin-top: 18px;
+    color: #6a6f8a;
+    font-size: 11.5px;
+    line-height: 1.5;
+    max-width: 280px;
+  }
+  .email-success {
+    display: none;
+    margin-top: 20px;
+    padding: 14px 16px;
+    background: rgba(34,178,186,0.12);
+    border: 1px solid rgba(34,178,186,0.30);
+    border-radius: 14px;
+    color: #6fdde2;
+    font-weight: 600;
+    font-size: 14px;
+    width: 100%;
+    max-width: 320px;
+    text-align: center;
+  }
+  .email-success.is-on { display: block; }
+  .email-form.is-sent { opacity: 0.45; pointer-events: none; }
+
   /* Typewriter caret — hidden by default, only shown while .is-typing is on the speech-text */
   .typewriter-caret {
     display: none;
@@ -951,6 +1861,156 @@
     letter-spacing: 0.08em;
     margin-top: 3px;
   }
+  /* Top Critical Issues list on Step 3 — makes the volume of problems feel real */
+  .critical-list {
+    background: rgba(220, 74, 65, 0.10);
+    border: 1px solid rgba(220, 74, 65, 0.25);
+    border-radius: 18px;
+    padding: 18px 18px 16px;
+    margin-bottom: 18px;
+  }
+  .critical-list-title {
+    color: #ff7a72;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    margin-bottom: 14px;
+  }
+  /* Expandable items in the Top Critical Issues list — chevron rotates on tap */
+  .critical-item {
+    border-radius: 8px;
+  }
+  .critical-item-head {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    width: 100%;
+    background: transparent;
+    border: 0;
+    padding: 11px 4px;
+    color: #fff;
+    font-size: 14px;
+    font-weight: 500;
+    font-family: inherit;
+    text-align: left;
+    cursor: pointer;
+    transition: background 150ms ease;
+    border-radius: 8px;
+  }
+  .critical-item-head:hover { background: rgba(255,255,255,0.04); }
+  .critical-item-head .chev {
+    color: #ff7a72;
+    flex-shrink: 0;
+    width: 12px;
+    height: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: transform 200ms ease;
+  }
+  .critical-item-head.is-open .chev {
+    transform: rotate(90deg);
+  }
+  .critical-item-head .text {
+    flex: 1;
+    line-height: 1.35;
+  }
+  .critical-item-body {
+    display: none;
+    padding: 2px 4px 14px 28px;
+    color: #d9dbf0;
+    font-size: 13.5px;
+    line-height: 1.5;
+  }
+  .critical-item-body.is-on {
+    display: block;
+    animation: ciFade 280ms ease;
+  }
+  @keyframes ciFade {
+    from { opacity: 0; transform: translateY(-2px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  /* Expanded top item — the headline issue gets full context */
+  .critical-expanded {
+    padding: 4px 4px 12px;
+  }
+  .critical-expanded-head {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    color: #fff;
+    font-size: 15.5px;
+    font-weight: 700;
+    margin-bottom: 8px;
+  }
+  .critical-expanded-head .dot {
+    width: 8px; height: 8px;
+    background: #DC4A41;
+    border-radius: 50%;
+    flex-shrink: 0;
+  }
+  .critical-expanded-head .text {
+    flex: 1;
+    line-height: 1.3;
+  }
+  .critical-expanded-body {
+    color: #d9dbf0;
+    font-size: 13.5px;
+    line-height: 1.5;
+    padding-left: 20px;
+  }
+  .critical-divider {
+    height: 1px;
+    background: rgba(220, 74, 65, 0.18);
+    margin: 4px 0 8px;
+  }
+
+  .critical-rows {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+  }
+  .critical-row {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    color: #fff;
+    font-size: 14px;
+    padding: 8px 4px;
+    border-radius: 8px;
+    transition: background 150ms ease;
+    cursor: pointer;
+  }
+  .critical-row:hover {
+    background: rgba(255,255,255,0.04);
+  }
+  .critical-row .dot {
+    width: 7px; height: 7px;
+    background: #DC4A41;
+    border-radius: 50%;
+    flex-shrink: 0;
+  }
+  .critical-row .text {
+    flex: 1;
+    line-height: 1.35;
+  }
+  .critical-row .chev {
+    color: #6a6f8a;
+    font-size: 18px;
+    line-height: 1;
+  }
+  .critical-more {
+    margin-top: 12px;
+    padding-top: 12px;
+    border-top: 1px solid rgba(220, 74, 65, 0.18);
+    color: #8a8fa8;
+    font-size: 12px;
+    text-align: center;
+    font-weight: 600;
+  }
+
   .issue-callout {
     background: rgba(220, 74, 65, 0.10);
     border: 1px solid rgba(220, 74, 65, 0.25);
@@ -985,10 +2045,13 @@
   /* =========================================================
      SCREEN 3 — Show Magic
      ========================================================= */
+  /* Shared headline used on Steps 4 and 5 — matches the Step 2 .proc-title size for parity.
+     Keeping it identical means S4 (diagnose) and S5 (rewrite) mirror each other. */
   .fix-headline {
-    font-size: 22px;
-    font-weight: 700;
-    line-height: 1.25;
+    font-size: 26px;
+    font-weight: 800;
+    line-height: 1.15;
+    letter-spacing: -0.02em;
     margin-bottom: 18px;
     color: #fff;
   }
@@ -1025,18 +2088,122 @@
     color: #6fdde2;
   }
   .ba-quote {
-    font-family: 'Cormorant Garamond', serif;
+    font-family: 'Lato', sans-serif;
     font-style: italic;
-    font-size: 17px;
-    line-height: 1.4;
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 1.45;
     color: #e8eaf6;
   }
+  /* Step 4's 'What you wrote' quote breathes bigger since the screen is light on content */
+  #step4-col .ba-quote { font-size: 18.5px; line-height: 1.5; }
   .ba-quote .stat {
     font-style: normal;
     font-family: 'Inter', sans-serif;
     font-weight: 700;
     color: #fff;
   }
+  /* Apply-and-track on Step 4 */
+  .apply-tracker {
+    background: #1a1c33;
+    border: 1px solid rgba(255,255,255,0.06);
+    border-radius: 18px;
+    padding: 18px 18px;
+    margin-bottom: 18px;
+  }
+  .apply-toggle {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    cursor: pointer;
+    padding: 4px 0;
+    user-select: none;
+  }
+  .apply-check {
+    width: 28px; height: 28px;
+    flex-shrink: 0;
+    border: 2px solid rgba(255,255,255,0.20);
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background 200ms ease, border-color 200ms ease, transform 200ms ease;
+    background: transparent;
+  }
+  .apply-check svg {
+    opacity: 0;
+    transition: opacity 180ms ease;
+    color: #fff;
+  }
+  .apply-toggle.is-applied .apply-check {
+    background: #22B2BA;
+    border-color: #22B2BA;
+    transform: scale(1.05);
+  }
+  .apply-toggle.is-applied .apply-check svg { opacity: 1; }
+  .apply-label {
+    font-size: 15px;
+    font-weight: 600;
+    color: #d9dbf0;
+    transition: color 200ms ease;
+  }
+  .apply-toggle.is-applied .apply-label { color: #6fdde2; }
+  .apply-progress {
+    margin-top: 16px;
+    padding-top: 14px;
+    border-top: 1px solid rgba(255,255,255,0.06);
+  }
+  .apply-progress .pr-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    font-size: 12px;
+    color: #8a8fa8;
+    margin-bottom: 8px;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+  }
+  .apply-progress .pr-count {
+    color: #fff;
+    font-weight: 700;
+    font-size: 13px;
+  }
+  .apply-progress .pr-track {
+    height: 6px;
+    background: rgba(255,255,255,0.06);
+    border-radius: 3px;
+    overflow: hidden;
+  }
+  .apply-progress .pr-fill {
+    height: 100%;
+    width: 0%;
+    background: linear-gradient(90deg, #F4A45A, #EE7B3B);
+    border-radius: 3px;
+    transition: width 600ms cubic-bezier(0.4, 0, 0.2, 1);
+  }
+  /* Step 5 — upsell pitch above the CTA */
+  .upsell {
+    background: rgba(238,123,59,0.12);
+    border: 1px solid rgba(238,123,59,0.28);
+    border-radius: 16px;
+    padding: 16px 18px;
+    margin-bottom: 12px;
+    text-align: center;
+  }
+  .upsell-title {
+    color: #FF6B62;
+    font-size: 20px;
+    font-weight: 800;
+    letter-spacing: -0.01em;
+    margin-bottom: 8px;
+    text-shadow: 0 0 18px rgba(255, 107, 98, 0.35);
+  }
+  .upsell-body {
+    color: #d9dbf0;
+    font-size: 13.5px;
+    line-height: 1.45;
+  }
+
   .magic-pull {
     background: rgba(99, 102, 241, 0.14);
     border: 1px solid rgba(99, 102, 241, 0.22);
@@ -1123,6 +2290,8 @@
             </div>
           </div>
 
+          <div class="s-logo">startups.com</div>
+
           <div class="hero-headline" style="margin-top: 64px;">Find out how your <span class="accent">deck</span> gets a <span class="accent">check.</span></div>
           <div class="hero-lede">Upload your Pitch Deck and we'll tell you exactly what investors will need you to change to fund you.</div>
 
@@ -1141,6 +2310,28 @@
                 <span class="progress-pct" id="upload-pct">0%</span>
               </div>
               <button type="button" class="reset-btn" id="upload-reset">Reset</button>
+            </div>
+          </div>
+
+          <div class="outcomes">
+            <div class="outcomes-head">Here's what you get</div>
+            <div class="outcome-row">
+              <span class="outcome-ico">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2l3 7h7l-5.5 4 2 7L12 16l-6.5 4 2-7L2 9h7z"/></svg>
+              </span>
+              <span>Real world deck audit, not AI slop</span>
+            </div>
+            <div class="outcome-row">
+              <span class="outcome-ico">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 22V4"/><path d="M4 4h12l-2 4 2 4H4"/></svg>
+              </span>
+              <span>Specific investor objections</span>
+            </div>
+            <div class="outcome-row">
+              <span class="outcome-ico">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2l8 8-12 12H2v-8z"/><path d="M14 2l8 8"/></svg>
+              </span>
+              <span>Step-by-step immediate fixes</span>
             </div>
           </div>
 
@@ -1176,6 +2367,28 @@
                 <path d="M1 1.5L6 6.5L11 1.5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
               </svg>
             </button>
+          </div>
+
+          <button type="button" class="trust-trigger" id="trust-trigger">
+            <svg class="trust-chev" width="9" height="9" viewBox="0 0 10 10" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M3 1.5l3.5 3.5L3 8.5"/>
+            </svg>
+            <span>Why trust our advice?</span>
+          </button>
+
+          <div class="trust-block" id="trust-block">
+            <div class="trust-head">
+              <div class="trust-avatar"><img src="static/wil.jpg" alt=""></div>
+              <div>
+                <div class="trust-name">Wil Schroter</div>
+                <div class="trust-role">Founder &amp; CEO, Startups.com</div>
+              </div>
+            </div>
+            <div class="trust-body">
+              <p>For over <strong>15 years</strong>, we've helped <strong>1 million startups</strong> scale their businesses. Startups like <span class="brand">Bumble</span>, <span class="brand">Athletic Greens</span>, and <span class="brand">Vevo</span> got their start with us.</p>
+              <p>We get paid to review thousands of pitch decks, and we've built a rock-solid, proven process that has helped Founders like you raise over <span class="money">$1 billion</span> in early-stage funding and <span class="money">$15 billion</span> in follow-on capital.</p>
+              <p>We've replicated the same in-person process inside this app. The outcome is <strong>nearly identical</strong>.</p>
+            </div>
           </div>
 
           <div class="proof-row">
@@ -1398,7 +2611,7 @@
           <div class="speech-wrap s3-fade" id="s3-narrative">
             <div class="speech">
               <span class="speech-quote-mark">&ldquo;</span>
-              <div class="speech-text" id="quote-text"><strong id="quote-bold">This deck has potential.</strong><span id="quote-rest"> The story is here, it is just buried under fixable mistakes. We can have it ready before your next investor meeting.</span><span class="typewriter-caret" id="quote-caret"></span></div>
+              <div class="speech-text" id="quote-text"><strong id="quote-bold">This deck is close.</strong><span id="quote-r1"> The team is right and customer spend is real. The </span><strong id="quote-r2">Market Size</strong><span id="quote-r3"> slide buries it. The </span><strong id="quote-r4">Traction</strong><span id="quote-r5"> page leans on vanity metrics.</span><span class="typewriter-caret" id="quote-caret"></span></div>
             </div>
             <div class="speech-attr">
               <span class="attr-avatar"><img src="static/wil.jpg" alt=""></span>
@@ -1406,15 +2619,46 @@
             </div>
           </div>
 
-          <div class="issue-callout s3-fade" id="s3-issue">
-            <span class="issue-pill">Biggest issue</span>
-            <div class="issue-title">Your Market Size slide does not pass the credibility test.</div>
-            <div class="issue-body">We see a $48B TAM number with no source and no path from your wedge to that figure. Investors will mark this as a red flag in 10 seconds.</div>
+          <div class="critical-list s3-fade" id="s3-issue">
+            <div class="critical-list-title">Top Critical Issues</div>
+
+            <div class="critical-item">
+              <button type="button" class="critical-item-head is-open" data-target="ci-1">
+                <svg class="chev" viewBox="0 0 10 10" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 1.5l3.5 3.5L3 8.5"/></svg>
+                <span class="text"><span class="slide-name">Market Size</span> figure is too broad</span>
+              </button>
+              <div class="critical-item-body is-on" id="ci-1">Our $48B "pet wellness" figure stretches past what we actually sell, and the number has no source. Investors flag a vanity TAM in 10 seconds.</div>
+            </div>
+
+            <div class="critical-item">
+              <button type="button" class="critical-item-head" data-target="ci-2">
+                <svg class="chev" viewBox="0 0 10 10" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 1.5l3.5 3.5L3 8.5"/></svg>
+                <span class="text"><span class="slide-name">Solution</span> doesn't mirror the Problem</span>
+              </button>
+              <div class="critical-item-body" id="ci-2">We listed three pains in the Problem slide, but the Solution only inverts one of them. Investors will see the gap between what we say is broken and what we say we built.</div>
+            </div>
+
+            <div class="critical-item">
+              <button type="button" class="critical-item-head" data-target="ci-3">
+                <svg class="chev" viewBox="0 0 10 10" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 1.5l3.5 3.5L3 8.5"/></svg>
+                <span class="text"><span class="slide-name">Traction</span> relies on vanity metrics</span>
+              </button>
+              <div class="critical-item-body" id="ci-3">Signups and impressions aren't traction. Investors want retained, paying customers. The numbers we show today don't pass that bar.</div>
+            </div>
+
+            <div class="critical-item">
+              <button type="button" class="critical-item-head" data-target="ci-4">
+                <svg class="chev" viewBox="0 0 10 10" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 1.5l3.5 3.5L3 8.5"/></svg>
+                <span class="text"><span class="slide-name">Funding</span> ask has no plan attached</span>
+              </button>
+              <div class="critical-item-body" id="ci-4">We say what we need. We don't say what it gets us done. Investors fund milestones, not vague gaps.</div>
+            </div>
+
+            <div class="critical-more">+ 44 more problems in the full audit</div>
           </div>
 
           <div class="cta-stack s3-fade" id="s3-cta">
-            <button class="btn btn-primary" id="fix-cta">Show me the fix</button>
-            <button class="btn btn-secondary">Read the full audit</button>
+            <button class="btn btn-primary" id="fix-cta">Show me the Fixes</button>
           </div>
         </div>
 
@@ -1439,8 +2683,8 @@
       <div class="step-label">
         <div class="step-num">4</div>
         <div>
-          <div class="step-text">Show Magic</div>
-          <div class="step-sub">One fix, then upsell the rest</div>
+          <div class="step-text">Diagnose</div>
+          <div class="step-sub">Show what's wrong with the line</div>
         </div>
       </div>
 
@@ -1472,32 +2716,133 @@
             </div>
           </div>
 
-          <div class="eyebrow" style="margin-top: 14px;">FIX PREVIEW &middot; MARKET SIZE</div>
-          <h1 class="fix-headline">Here's how we'd fix your Market Size slide.</h1>
+          <h1 class="fix-headline" style="text-align: center; margin-top: 14px;">What's Wrong with the<br><span class="slide-name">Market Size</span> slide</h1>
 
           <div class="ba-card before">
-            <span class="ba-label">Before</span>
+            <span class="ba-label">What you wrote</span>
             <div class="ba-quote">"The pet wellness market is a <span class="stat">$48B opportunity</span> and we're going after it."</div>
           </div>
 
+          <div class="whats-wrong">
+            <div class="ww-title">What's wrong</div>
+            <ul class="ww-list">
+              <li>
+                <svg class="ww-icon" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M3 3l10 10M13 3L3 13"/></svg>
+                <span>"Pet wellness" is way broader than what we actually sell.</span>
+              </li>
+              <li>
+                <svg class="ww-icon" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M3 3l10 10M13 3L3 13"/></svg>
+                <span>The $48B has no source. We don't say where this money currently lives.</span>
+              </li>
+              <li>
+                <svg class="ww-icon" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M3 3l10 10M13 3L3 13"/></svg>
+                <span>"Going after it" is filler. Nothing here tells an investor why we win.</span>
+              </li>
+            </ul>
+          </div>
+
+          <div class="speech-wrap">
+            <div class="speech">
+              <span class="speech-quote-mark">&ldquo;</span>
+              <div class="speech-text"><strong>That market size could mean anything.</strong> You haven't convinced me exactly how big your slice is.</div>
+            </div>
+            <div class="speech-attr">
+              <span class="attr-avatar attr-avatar-investor">
+                <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 12c2.7 0 4.9-2.2 4.9-4.9S14.7 2.2 12 2.2 7.1 4.4 7.1 7.1 9.3 12 12 12zm0 2.5c-3.2 0-9.7 1.6-9.7 4.9V22h19.4v-2.6c0-3.3-6.5-4.9-9.7-4.9z"/></svg>
+              </span>
+              <span class="attr-text">Investor Objection</span>
+            </div>
+          </div>
+
+          <button type="button" class="suggest-btn" id="suggest-rewrite">Show Rewrite</button>
+        </div>
+
+        <div class="fab">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2">
+            <path d="M12 2L2 7l10 5 10-5-10-5z"/>
+            <path d="M2 17l10 5 10-5"/>
+            <path d="M2 12l10 5 10-5"/>
+          </svg>
+        </div>
+
+        <div class="phone-caption">Step 4 &middot; Diagnose</div>
+      </div>
+    </div>
+
+    <div class="flow-arrow">&rsaquo;</div>
+
+    <!-- ============================================
+         STEP 5 - REWRITE
+         ============================================ -->
+    <div class="col" id="step5-col">
+      <div class="step-label">
+        <div class="step-num">5</div>
+        <div>
+          <div class="step-text">Rewrite</div>
+          <div class="step-sub">The fix, in our voice</div>
+        </div>
+      </div>
+
+      <div class="phone">
+        <span class="side-btn mute"></span>
+        <span class="side-btn vup"></span>
+        <span class="side-btn vdown"></span>
+        <span class="side-btn power"></span>
+        <div class="island"></div>
+
+        <div class="screen">
+          <div class="status">
+            <span>9:41</span>
+            <div class="right">
+              <svg width="18" height="11" viewBox="0 0 18 11"><g fill="#fff">
+                <rect x="0" y="7" width="3" height="4" rx="0.5"/>
+                <rect x="5" y="5" width="3" height="6" rx="0.5"/>
+                <rect x="10" y="2" width="3" height="9" rx="0.5"/>
+                <rect x="15" y="0" width="3" height="11" rx="0.5"/>
+              </g></svg>
+              <svg width="17" height="12" viewBox="0 0 17 12" fill="#fff">
+                <path d="M8.5 0C5.4 0 2.5 1.1 0.3 3l1.4 1.4C3.6 2.7 5.9 1.8 8.5 1.8s4.9 0.9 6.8 2.6L16.7 3C14.5 1.1 11.6 0 8.5 0zm0 3.6c-2.2 0-4.2 0.8-5.8 2.2L4.1 7.2C5.3 6.1 6.8 5.4 8.5 5.4s3.2 0.7 4.4 1.8l1.4-1.4c-1.6-1.4-3.6-2.2-5.8-2.2zm0 3.6c-1.2 0-2.3 0.5-3.1 1.3L8.5 12l3.1-3.5c-0.8-0.8-1.9-1.3-3.1-1.3z"/>
+              </svg>
+              <svg width="27" height="12" viewBox="0 0 27 12">
+                <rect x="0.5" y="0.5" width="22" height="11" rx="3" fill="none" stroke="#fff" stroke-opacity="0.5" stroke-width="1"/>
+                <rect x="2" y="2" width="19" height="8" rx="1.5" fill="#fff"/>
+                <rect x="24" y="4" width="2" height="4" rx="1" fill="#fff" fill-opacity="0.5"/>
+              </svg>
+            </div>
+          </div>
+
+          <h1 class="fix-headline" style="text-align: center; margin-top: 14px;">How to Fix the<br><span class="slide-name">Market Size</span> slide</h1>
+
           <div class="ba-card after">
-            <span class="ba-label">After &middot; Wil's rewrite</span>
-            <div class="ba-quote">"38M U.S. dog owners spend <span class="stat">$1,400 a year</span> on treats. If 1% switch to organic, that's a <span class="stat">$530M wedge</span> we own first."</div>
+            <span class="ba-label">After Rewrite</span>
+            <div class="ba-quote">"38M U.S. dog owners spend <span class="stat">$1,400 a year</span> on treats: a <span class="stat">$53B market</span>. Our beachhead is the <span class="stat">$5B organic segment</span>, where two regional retailers have already signed LOIs."</div>
           </div>
 
-          <div class="callout">
-            <div class="callout-title">Why this works.</div>
-            <div class="callout-body">A real wedge with a real number beats a vanity TAM every time. Now an investor knows exactly what we're winning, and why.</div>
+          <div class="whats-right">
+            <div class="ww-title">Why this works</div>
+            <ul class="ww-list">
+              <li>
+                <svg class="ww-icon" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M3 8l3 3 7-8"/></svg>
+                <span>We name what we actually sell: organic dog treats, not "pet wellness."</span>
+              </li>
+              <li>
+                <svg class="ww-icon" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M3 8l3 3 7-8"/></svg>
+                <span>The $53B is anchored to where the money lives today: existing treat spend.</span>
+              </li>
+              <li>
+                <svg class="ww-icon" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M3 8l3 3 7-8"/></svg>
+                <span>We name our beachhead and show real leverage: signed LOIs from two regional retailers.</span>
+              </li>
+            </ul>
           </div>
 
-          <div class="magic-pull">
-            <div class="big">1 slide fixed. 47 to go.</div>
-            <div class="sm">We'll rewrite every one of them in your voice.</div>
+          <div class="upsell">
+            <div class="upsell-title">48 more problems left.</div>
+            <div class="upsell-body">Get the full audit and fixes. We'll set up a free account now.</div>
           </div>
 
           <div class="cta-stack">
-            <button class="btn btn-primary">Fix the rest of my deck</button>
-            <button class="btn btn-secondary">Just send me the audit</button>
+            <button class="btn btn-primary" id="full-audit-cta">Get my Full Audit</button>
           </div>
         </div>
 
@@ -1509,7 +2854,320 @@
           </svg>
         </div>
 
-        <div class="phone-caption">Step 4 &middot; Show Magic</div>
+        <div class="phone-caption">Step 5 &middot; Rewrite</div>
+      </div>
+    </div>
+
+    <div class="flow-arrow">&rsaquo;</div>
+
+    <!-- ============================================
+         STEP 6 - AUDIT READY / UNLOCK
+         ============================================ -->
+    <div class="col" id="step6-col">
+      <div class="step-label">
+        <div class="step-num">6</div>
+        <div>
+          <div class="step-text">Unlock</div>
+          <div class="step-sub">Audit lives here, behind an account</div>
+        </div>
+      </div>
+
+      <div class="phone">
+        <span class="side-btn mute"></span>
+        <span class="side-btn vup"></span>
+        <span class="side-btn vdown"></span>
+        <span class="side-btn power"></span>
+        <div class="island"></div>
+
+        <div class="screen">
+          <div class="status">
+            <span>9:41</span>
+            <div class="right">
+              <svg width="18" height="11" viewBox="0 0 18 11"><g fill="#fff">
+                <rect x="0" y="7" width="3" height="4" rx="0.5"/>
+                <rect x="5" y="5" width="3" height="6" rx="0.5"/>
+                <rect x="10" y="2" width="3" height="9" rx="0.5"/>
+                <rect x="15" y="0" width="3" height="11" rx="0.5"/>
+              </g></svg>
+              <svg width="17" height="12" viewBox="0 0 17 12" fill="#fff">
+                <path d="M8.5 0C5.4 0 2.5 1.1 0.3 3l1.4 1.4C3.6 2.7 5.9 1.8 8.5 1.8s4.9 0.9 6.8 2.6L16.7 3C14.5 1.1 11.6 0 8.5 0zm0 3.6c-2.2 0-4.2 0.8-5.8 2.2L4.1 7.2C5.3 6.1 6.8 5.4 8.5 5.4s3.2 0.7 4.4 1.8l1.4-1.4c-1.6-1.4-3.6-2.2-5.8-2.2zm0 3.6c-1.2 0-2.3 0.5-3.1 1.3L8.5 12l3.1-3.5c-0.8-0.8-1.9-1.3-3.1-1.3z"/>
+              </svg>
+              <svg width="27" height="12" viewBox="0 0 27 12">
+                <rect x="0.5" y="0.5" width="22" height="11" rx="3" fill="none" stroke="#fff" stroke-opacity="0.5" stroke-width="1"/>
+                <rect x="2" y="2" width="19" height="8" rx="1.5" fill="#fff"/>
+                <rect x="24" y="4" width="2" height="4" rx="1" fill="#fff" fill-opacity="0.5"/>
+              </svg>
+            </div>
+          </div>
+
+          <div class="s-logo">startups.com</div>
+
+          <div class="account-screen">
+            <h1>Get your <span class="slide-name">Full Pitch Deck Audit</span></h1>
+            <p class="sub">Set up a free account and we'll walk you through all your fixes.</p>
+
+            <div class="account-perks">
+              <div class="perk-row">
+                <span class="perk-ico">
+                  <svg width="13" height="13" viewBox="0 0 18 18" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9.5l4 4 8-9"/></svg>
+                </span>
+                <span>All 48 problems flagged on your deck</span>
+              </div>
+              <div class="perk-row">
+                <span class="perk-ico">
+                  <svg width="13" height="13" viewBox="0 0 18 18" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9.5l4 4 8-9"/></svg>
+                </span>
+                <span>Step-by-step, complete fixes</span>
+              </div>
+              <div class="perk-row">
+                <span class="perk-ico">
+                  <svg width="13" height="13" viewBox="0 0 18 18" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9.5l4 4 8-9"/></svg>
+                </span>
+                <span>Real-time score improvement</span>
+              </div>
+            </div>
+
+            <form class="signup-form" id="account-form">
+              <input type="email" placeholder="you@startup.com" class="account-input" id="account-email" required>
+              <button type="submit" class="btn btn-primary">Continue with email</button>
+            </form>
+
+            <div class="or-divider">
+              <span class="or-rule"></span>
+              <span class="or-text">OR</span>
+              <span class="or-rule"></span>
+            </div>
+
+            <div class="social-buttons">
+              <button type="button" class="social-btn">
+                <span class="ico">
+                  <svg viewBox="0 0 24 24" width="18" height="18">
+                    <path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/>
+                    <path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/>
+                    <path fill="#FBBC05" d="M5.84 14.1c-.22-.66-.35-1.36-.35-2.1s.13-1.44.35-2.1V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l3.66-2.83z"/>
+                    <path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.83C6.71 7.31 9.14 5.38 12 5.38z"/>
+                  </svg>
+                </span>
+                <span>Continue with Google</span>
+              </button>
+              <button type="button" class="social-btn">
+                <span class="ico">
+                  <svg viewBox="0 0 24 24" width="18" height="18" fill="#0A66C2">
+                    <path d="M20.45 20.45h-3.56v-5.57c0-1.33-.02-3.05-1.86-3.05-1.86 0-2.15 1.45-2.15 2.95v5.67H9.32V9h3.41v1.56h.05c.48-.9 1.64-1.86 3.37-1.86 3.6 0 4.27 2.37 4.27 5.45v6.3zM5.34 7.43c-1.14 0-2.06-.93-2.06-2.07 0-1.14.92-2.06 2.06-2.06 1.14 0 2.06.93 2.06 2.06 0 1.14-.93 2.07-2.06 2.07zM7.12 20.45H3.56V9h3.56v11.45z"/>
+                  </svg>
+                </span>
+                <span>Continue with LinkedIn</span>
+              </button>
+              <button type="button" class="social-btn">
+                <span class="ico">
+                  <svg viewBox="0 0 24 24" width="18" height="18" fill="#fff">
+                    <path d="M17.05 12.04c-.02-2.05 1.67-3.04 1.75-3.09-.96-1.4-2.45-1.59-2.97-1.61-1.26-.13-2.46.74-3.1.74-.65 0-1.63-.72-2.69-.7-1.37.02-2.65.8-3.36 2.04-1.45 2.51-.37 6.21 1.03 8.24.7 1 1.51 2.11 2.57 2.07 1.04-.04 1.43-.66 2.68-.66 1.25 0 1.6.66 2.69.64 1.11-.02 1.81-1 2.49-2 .79-1.15 1.11-2.28 1.13-2.34-.02-.01-2.17-.83-2.19-3.33zM15.05 6.04c.57-.69.96-1.65.85-2.6-.82.03-1.82.55-2.41 1.24-.53.61-.99 1.59-.87 2.52.92.07 1.85-.47 2.43-1.16z"/>
+                  </svg>
+                </span>
+                <span>Continue with Apple</span>
+              </button>
+            </div>
+
+            <div class="legal-line">By continuing you agree to our Terms and Privacy.</div>
+          </div>
+        </div>
+
+        <div class="fab">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2">
+            <path d="M12 2L2 7l10 5 10-5-10-5z"/>
+            <path d="M2 17l10 5 10-5"/>
+            <path d="M2 12l10 5 10-5"/>
+          </svg>
+        </div>
+
+        <div class="phone-caption">Step 6 &middot; Unlock</div>
+      </div>
+    </div>
+
+    <div class="flow-arrow">&rsaquo;</div>
+
+    <!-- ============================================
+         STEP 7 - INTERSTITIAL (creating Startups.com account)
+         ============================================ -->
+    <div class="col" id="step7-col">
+      <div class="step-label">
+        <div class="step-num">7</div>
+        <div>
+          <div class="step-text">Creating Account</div>
+          <div class="step-sub">Linking your audit to Startups.com</div>
+        </div>
+      </div>
+
+      <div class="phone">
+        <span class="side-btn mute"></span>
+        <span class="side-btn vup"></span>
+        <span class="side-btn vdown"></span>
+        <span class="side-btn power"></span>
+        <div class="island"></div>
+
+        <div class="screen">
+          <div class="status">
+            <span>9:41</span>
+            <div class="right">
+              <svg width="18" height="11" viewBox="0 0 18 11"><g fill="#fff">
+                <rect x="0" y="7" width="3" height="4" rx="0.5"/>
+                <rect x="5" y="5" width="3" height="6" rx="0.5"/>
+                <rect x="10" y="2" width="3" height="9" rx="0.5"/>
+                <rect x="15" y="0" width="3" height="11" rx="0.5"/>
+              </g></svg>
+              <svg width="17" height="12" viewBox="0 0 17 12" fill="#fff">
+                <path d="M8.5 0C5.4 0 2.5 1.1 0.3 3l1.4 1.4C3.6 2.7 5.9 1.8 8.5 1.8s4.9 0.9 6.8 2.6L16.7 3C14.5 1.1 11.6 0 8.5 0zm0 3.6c-2.2 0-4.2 0.8-5.8 2.2L4.1 7.2C5.3 6.1 6.8 5.4 8.5 5.4s3.2 0.7 4.4 1.8l1.4-1.4c-1.6-1.4-3.6-2.2-5.8-2.2zm0 3.6c-1.2 0-2.3 0.5-3.1 1.3L8.5 12l3.1-3.5c-0.8-0.8-1.9-1.3-3.1-1.3z"/>
+              </svg>
+              <svg width="27" height="12" viewBox="0 0 27 12">
+                <rect x="0.5" y="0.5" width="22" height="11" rx="3" fill="none" stroke="#fff" stroke-opacity="0.5" stroke-width="1"/>
+                <rect x="2" y="2" width="19" height="8" rx="1.5" fill="#fff"/>
+                <rect x="24" y="4" width="2" height="4" rx="1" fill="#fff" fill-opacity="0.5"/>
+              </svg>
+            </div>
+          </div>
+
+          <div class="interstitial-screen">
+            <div class="big-logo">startups.com</div>
+            <h1>Setting up your account</h1>
+            <p class="sub">Linking your audit to your new Startups.com workspace.</p>
+            <ol class="setup-steps" id="setup-steps">
+              <li class="setup-step done">
+                <span class="step-ico">
+                  <svg width="14" height="14" viewBox="0 0 18 18" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9.5l4 4 8-9"/></svg>
+                </span>
+                <span>Account created</span>
+              </li>
+              <li class="setup-step done">
+                <span class="step-ico">
+                  <svg width="14" height="14" viewBox="0 0 18 18" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9.5l4 4 8-9"/></svg>
+                </span>
+                <span>Audit linked</span>
+              </li>
+              <li class="setup-step active">
+                <span class="step-ico"></span>
+                <span>Loading your workspace</span>
+              </li>
+            </ol>
+          </div>
+        </div>
+
+        <div class="fab">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2">
+            <path d="M12 2L2 7l10 5 10-5-10-5z"/>
+            <path d="M2 17l10 5 10-5"/>
+            <path d="M2 12l10 5 10-5"/>
+          </svg>
+        </div>
+
+        <div class="phone-caption">Step 7 &middot; Creating Account</div>
+      </div>
+    </div>
+
+    <div class="flow-arrow">&rsaquo;</div>
+
+    <!-- ============================================
+         STEP 8 - WORKSPACE (inside Startups.com)
+         ============================================ -->
+    <div class="col" id="step8-col">
+      <div class="step-label">
+        <div class="step-num">8</div>
+        <div>
+          <div class="step-text">Workspace</div>
+          <div class="step-sub">Audit inside Startups.com, partial unlock</div>
+        </div>
+      </div>
+
+      <div class="phone">
+        <span class="side-btn mute"></span>
+        <span class="side-btn vup"></span>
+        <span class="side-btn vdown"></span>
+        <span class="side-btn power"></span>
+        <div class="island"></div>
+
+        <div class="screen workspace-screen">
+          <div class="status">
+            <span>9:41</span>
+            <div class="right">
+              <svg width="18" height="11" viewBox="0 0 18 11"><g fill="#fff">
+                <rect x="0" y="7" width="3" height="4" rx="0.5"/>
+                <rect x="5" y="5" width="3" height="6" rx="0.5"/>
+                <rect x="10" y="2" width="3" height="9" rx="0.5"/>
+                <rect x="15" y="0" width="3" height="11" rx="0.5"/>
+              </g></svg>
+              <svg width="17" height="12" viewBox="0 0 17 12" fill="#fff">
+                <path d="M8.5 0C5.4 0 2.5 1.1 0.3 3l1.4 1.4C3.6 2.7 5.9 1.8 8.5 1.8s4.9 0.9 6.8 2.6L16.7 3C14.5 1.1 11.6 0 8.5 0zm0 3.6c-2.2 0-4.2 0.8-5.8 2.2L4.1 7.2C5.3 6.1 6.8 5.4 8.5 5.4s3.2 0.7 4.4 1.8l1.4-1.4c-1.6-1.4-3.6-2.2-5.8-2.2zm0 3.6c-1.2 0-2.3 0.5-3.1 1.3L8.5 12l3.1-3.5c-0.8-0.8-1.9-1.3-3.1-1.3z"/>
+              </svg>
+              <svg width="27" height="12" viewBox="0 0 27 12">
+                <rect x="0.5" y="0.5" width="22" height="11" rx="3" fill="none" stroke="#fff" stroke-opacity="0.5" stroke-width="1"/>
+                <rect x="2" y="2" width="19" height="8" rx="1.5" fill="#fff"/>
+                <rect x="24" y="4" width="2" height="4" rx="1" fill="#fff" fill-opacity="0.5"/>
+              </svg>
+            </div>
+          </div>
+
+          <div class="ws-bar">
+            <div class="ws-bar-left">
+              <span class="ws-bar-logo">startups.com</span>
+              <span class="ws-bar-app">/ <span class="pitchy">Pitchy</span></span>
+            </div>
+            <div class="ws-bar-avatar">W</div>
+          </div>
+
+          <div class="ws-content">
+            <div class="ws-greet">
+              <h1>Welcome, Wil.</h1>
+              <div class="meta">Polyheart Deck Audit &middot; updated just now</div>
+            </div>
+
+            <div class="ws-summary">
+              <div class="ws-grade">C-</div>
+              <div class="ws-summary-meta">
+                <div class="ws-summary-main">48 problems &middot; 9 rewrites ready</div>
+                <div class="ws-summary-sub">1 unlocked, 8 behind upgrade</div>
+              </div>
+            </div>
+
+            <div class="ws-section-title">Your fixes</div>
+            <div class="ws-issue-list">
+              <div class="ws-issue">
+                <span class="num">1</span>
+                <span class="ws-issue-text"><span class="slide-name">Market Size</span> figure too broad</span>
+                <span class="chev">&rsaquo;</span>
+              </div>
+              <div class="ws-issue is-locked">
+                <span class="num">2</span>
+                <span class="ws-issue-text"><span class="slide-name">Solution</span> doesn't mirror the Problem</span>
+                <svg class="chev" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="11" width="16" height="10" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/></svg>
+              </div>
+              <div class="ws-issue is-locked">
+                <span class="num">3</span>
+                <span class="ws-issue-text"><span class="slide-name">Traction</span> relies on vanity metrics</span>
+                <svg class="chev" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="11" width="16" height="10" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/></svg>
+              </div>
+              <div class="ws-issue is-locked">
+                <span class="num">4</span>
+                <span class="ws-issue-text"><span class="slide-name">Funding</span> ask has no plan attached</span>
+                <svg class="chev" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="11" width="16" height="10" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/></svg>
+              </div>
+            </div>
+
+            <div class="ws-paywall">
+              <div class="ws-paywall-title">Unlock the other 47 fixes</div>
+              <div class="ws-paywall-body">Every rewrite. Re-audit anytime. Progress tracking.</div>
+              <button class="btn btn-primary">Upgrade for Full Access</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="fab">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2">
+            <path d="M12 2L2 7l10 5 10-5-10-5z"/>
+            <path d="M2 17l10 5 10-5"/>
+            <path d="M2 12l10 5 10-5"/>
+          </svg>
+        </div>
+
+        <div class="phone-caption">Step 8 &middot; Workspace</div>
       </div>
     </div>
 
@@ -1575,8 +3233,7 @@ var uploadCounter = (function() {
   return { restart: run, freeze: freeze };
 })();
 
-// Sample-deck pick: swap filename/size to the chosen sample, freeze the progress at 100%,
-// show 'Sample Deck Loaded' + Reset button. Reset restores the default upload-in-progress state.
+// Sample-deck pick
 (function() {
   var nameEl = document.getElementById('upload-name');
   var sizeEl = document.getElementById('upload-size');
@@ -1587,13 +3244,11 @@ var uploadCounter = (function() {
   var trigger = document.getElementById('sample-trigger');
   var rows = document.querySelectorAll('.js-sample');
   if (!nameEl || !wrap) return;
-
   var DEFAULTS = {
     name: nameEl.textContent,
     size: sizeEl ? sizeEl.textContent : '',
     status: statusEl ? statusEl.textContent : 'Uploading your deck'
   };
-
   rows.forEach(function(row) {
     row.addEventListener('click', function(e) {
       e.preventDefault();
@@ -1607,7 +3262,6 @@ var uploadCounter = (function() {
       if (trigger) trigger.classList.remove('is-open');
     });
   });
-
   if (resetBtn) {
     resetBtn.addEventListener('click', function(e) {
       e.preventDefault();
@@ -1620,32 +3274,20 @@ var uploadCounter = (function() {
   }
 })();
 
-// ============================================================
-// Animation orchestrator — each step's animations are gated by
-// the user clicking the previous step's CTA. Clicking a CTA also
-// smooth-scrolls the next phone into view.
-// ============================================================
+// Animation orchestrator
 var Pitchy = (function() {
-  var fired = { s2: false, s3: false };
-
   function scrollTo(id) {
     var el = document.getElementById(id);
     if (!el) return;
     el.scrollIntoView({ behavior: 'smooth', block: 'center', inline: 'center' });
   }
-
-  // --- Step 2: processing interstitial ---
   function runStep2() {
-    if (fired.s2) return;
-    fired.s2 = true;
-
     var list = document.getElementById('proc-list');
     if (!list) return;
     var steps = list.querySelectorAll('.proc-step');
     var titleEl = document.getElementById('proc-title');
     var elapsedEl = document.getElementById('proc-elapsed');
     var STEP_MS = 1500;
-
     steps.forEach(function(step, i) {
       setTimeout(function() {
         steps.forEach(function(s, j) {
@@ -1661,7 +3303,6 @@ var Pitchy = (function() {
       steps.forEach(function(s) { s.classList.remove('active'); s.classList.add('done'); });
       if (titleEl) titleEl.textContent = 'Audit complete!';
     }, steps.length * STEP_MS);
-
     if (elapsedEl) {
       var t0 = Date.now();
       setInterval(function() {
@@ -1669,36 +3310,28 @@ var Pitchy = (function() {
       }, 100);
     }
   }
-
-  // --- Step 3: reset → ring → C- → 48 → 4 → 9 → narrative → issue + CTAs ---
   function runStep3() {
     var screen = document.getElementById('s3-screen');
     if (!screen) return;
-
-    // Reset: clear is-on flags + typewriter text, then add .s3-animating to start
     var stats = document.querySelectorAll('#step3-col .stat-cell');
     var fades = document.querySelectorAll('#step3-col .s3-fade');
     stats.forEach(function(c) { c.classList.remove('is-on'); });
     fades.forEach(function(f) { f.classList.remove('is-on'); });
-
-    var boldEl = document.getElementById('quote-bold');
-    var restEl = document.getElementById('quote-rest');
-    var wrap   = document.getElementById('quote-text');
-    if (boldEl) boldEl.textContent = '';
-    if (restEl) restEl.textContent = '';
-    if (wrap)   wrap.classList.remove('is-typing');
-
-    // Force reflow so the next class add restarts CSS animations cleanly
+    var quoteEls = ['quote-bold','quote-r1','quote-r2','quote-r3','quote-r4','quote-r5'];
+    quoteEls.forEach(function(id) {
+      var el = document.getElementById(id);
+      if (el) el.textContent = '';
+    });
+    var wrap = document.getElementById('quote-text');
+    if (wrap) wrap.classList.remove('is-typing');
     screen.classList.remove('s3-animating');
     void screen.offsetWidth;
     screen.classList.add('s3-animating');
-
     var STATS_START = 1500;
     var STATS_GAP = 500;
     stats.forEach(function(cell, i) {
       setTimeout(function() { cell.classList.add('is-on'); }, STATS_START + i * STATS_GAP);
     });
-
     var NARR_AT = STATS_START + stats.length * STATS_GAP + 300;
     setTimeout(function() {
       var narr = document.getElementById('s3-narrative');
@@ -1706,16 +3339,23 @@ var Pitchy = (function() {
       setTimeout(startTypewriter, 200);
     }, NARR_AT);
   }
-
   function startTypewriter() {
+    var wrap = document.getElementById('quote-text');
     var boldEl = document.getElementById('quote-bold');
-    var restEl = document.getElementById('quote-rest');
-    var wrap   = document.getElementById('quote-text');
-    if (!boldEl || !restEl) return;
-
-    var BOLD = 'This deck has potential.';
-    var REST = ' The story is here, it is just buried under fixable mistakes. We can have it ready before your next investor meeting.';
-
+    var r1 = document.getElementById('quote-r1');
+    var r2 = document.getElementById('quote-r2');
+    var r3 = document.getElementById('quote-r3');
+    var r4 = document.getElementById('quote-r4');
+    var r5 = document.getElementById('quote-r5');
+    if (!boldEl || !r1) return;
+    var SEGMENTS = [
+      { el: boldEl, text: 'This deck is close.', speed: 46 },
+      { el: r1,     text: ' The team is right and customer spend is real. The ', speed: 26 },
+      { el: r2,     text: 'Market Size', speed: 32 },
+      { el: r3,     text: ' slide buries it. The ', speed: 26 },
+      { el: r4,     text: 'Traction', speed: 32 },
+      { el: r5,     text: ' page leans on vanity metrics.', speed: 26 }
+    ];
     function typeInto(el, text, speed, done) {
       var i = 0;
       function tick() {
@@ -1723,41 +3363,37 @@ var Pitchy = (function() {
           el.textContent = text.slice(0, i + 1);
           i++;
           setTimeout(tick, speed);
-        } else if (done) {
-          done();
-        }
+        } else if (done) { done(); }
       }
       tick();
     }
-
+    function runSequence(steps, idx, done) {
+      if (idx >= steps.length) { if (done) done(); return; }
+      var s = steps[idx];
+      typeInto(s.el, s.text, s.speed, function() { runSequence(steps, idx + 1, done); });
+    }
     if (wrap) wrap.classList.add('is-typing');
-
-    typeInto(boldEl, BOLD, 46, function() {
-      typeInto(restEl, REST, 26, function() {
-        if (wrap) wrap.classList.remove('is-typing');
-        setTimeout(function() {
-          var issue = document.getElementById('s3-issue');
-          var cta   = document.getElementById('s3-cta');
-          if (issue) issue.classList.add('is-on');
-          if (cta) {
-            setTimeout(function() { cta.classList.add('is-on'); }, 250);
-          }
-        }, 200);
-      });
+    runSequence(SEGMENTS, 0, function() {
+      if (wrap) wrap.classList.remove('is-typing');
+      setTimeout(function() {
+        var issue = document.getElementById('s3-issue');
+        var cta = document.getElementById('s3-cta');
+        if (issue) issue.classList.add('is-on');
+        if (cta) {
+          setTimeout(function() { cta.classList.add('is-on'); }, 250);
+        }
+      }, 200);
     });
   }
-
   var SCROLL_SETTLE_MS = 850;
   return {
-    triggerS2: function() {
-      scrollTo('step2-col');
-      setTimeout(runStep2, SCROLL_SETTLE_MS);
-    },
-    triggerS3: function() {
-      scrollTo('step3-col');
-      setTimeout(runStep3, SCROLL_SETTLE_MS);
-    },
-    triggerS4: function() { scrollTo('step4-col'); }
+    triggerS2: function() { scrollTo('step2-col'); setTimeout(runStep2, SCROLL_SETTLE_MS); },
+    triggerS3: function() { scrollTo('step3-col'); setTimeout(runStep3, SCROLL_SETTLE_MS); },
+    triggerS4: function() { scrollTo('step4-col'); },
+    triggerS5: function() { scrollTo('step5-col'); },
+    triggerS6: function() { scrollTo('step6-col'); },
+    triggerS7: function() { scrollTo('step7-col'); },
+    triggerS8: function() { scrollTo('step8-col'); }
   };
 })();
 
@@ -1771,6 +3407,112 @@ var Pitchy = (function() {
 
   var fixBtn = document.getElementById('fix-cta');
   if (fixBtn) fixBtn.addEventListener('click', function(e) { e.preventDefault(); Pitchy.triggerS4(); });
+
+  var auditLinkBtn = document.getElementById('audit-link-cta');
+  if (auditLinkBtn) auditLinkBtn.addEventListener('click', function(e) { e.preventDefault(); Pitchy.triggerS6(); });
+
+  var fullAuditBtn = document.getElementById('full-audit-cta');
+  if (fullAuditBtn) fullAuditBtn.addEventListener('click', function(e) { e.preventDefault(); Pitchy.triggerS6(); });
+
+  var unlockBtn = document.getElementById('unlock-cta');
+  if (unlockBtn) unlockBtn.addEventListener('click', function(e) { e.preventDefault(); Pitchy.triggerS7(); });
+})();
+
+// Step 1 — Trust block expandable
+(function() {
+  var trigger = document.getElementById('trust-trigger');
+  var block = document.getElementById('trust-block');
+  if (!trigger || !block) return;
+  trigger.addEventListener('click', function(e) {
+    e.preventDefault();
+    var open = block.classList.toggle('is-on');
+    trigger.classList.toggle('is-open', open);
+  });
+})();
+
+// Step 3 — Top Critical Issues expand/collapse
+(function() {
+  var heads = document.querySelectorAll('#step3-col .critical-item-head');
+  if (!heads.length) return;
+  heads.forEach(function(head) {
+    head.addEventListener('click', function(e) {
+      e.preventDefault();
+      var targetId = head.getAttribute('data-target');
+      var body = targetId ? document.getElementById(targetId) : null;
+      if (!body) return;
+      var open = body.classList.toggle('is-on');
+      head.classList.toggle('is-open', open);
+    });
+  });
+})();
+
+// Step 4 — Inline annotations
+(function() {
+  var annots = document.querySelectorAll('#step4-col .annotated');
+  var issueBox = document.getElementById('wyw-issue');
+  var issueText = document.getElementById('wyw-issue-text');
+  var hint = document.getElementById('wyw-hint');
+  if (!annots.length || !issueBox || !issueText) return;
+  annots.forEach(function(el) {
+    el.addEventListener('click', function(e) {
+      e.preventDefault();
+      annots.forEach(function(a) { a.classList.remove('is-active'); });
+      el.classList.add('is-active');
+      issueText.textContent = el.getAttribute('data-issue') || '';
+      issueBox.classList.add('is-on');
+      if (hint) hint.classList.add('is-hidden');
+    });
+  });
+})();
+
+// Step 4 — Show Rewrite
+(function() {
+  var btn = document.getElementById('suggest-rewrite');
+  if (!btn) return;
+  btn.addEventListener('click', function(e) {
+    e.preventDefault();
+    Pitchy.triggerS5();
+  });
+})();
+
+// Step 4 — Apply-and-track toggle (no-op if removed)
+(function() {
+  var toggle = document.getElementById('apply-toggle');
+  var label = document.getElementById('apply-label');
+  var count = document.getElementById('apply-count');
+  var fill = document.getElementById('apply-fill');
+  if (!toggle) return;
+  var TOTAL = 9;
+  var applied = false;
+  function render() {
+    var n = applied ? 1 : 0;
+    toggle.classList.toggle('is-applied', applied);
+    if (label) label.textContent = applied ? 'Applied to your deck' : 'Mark as applied to my deck';
+    if (count) count.textContent = n;
+    if (fill) fill.style.width = (n / TOTAL * 100) + '%';
+  }
+  toggle.addEventListener('click', function() { applied = !applied; render(); });
+  toggle.addEventListener('keydown', function(e) {
+    if (e.key === ' ' || e.key === 'Enter') { e.preventDefault(); applied = !applied; render(); }
+  });
+})();
+
+// Step 6 — Account form submit → S7 (interstitial). All social buttons also go to S7.
+(function() {
+  var form = document.getElementById('account-form');
+  if (form) {
+    form.addEventListener('submit', function(e) {
+      e.preventDefault();
+      Pitchy.triggerS7();
+    });
+  }
+  var socials = document.querySelectorAll('#step6-col .social-btn');
+  socials.forEach(function(btn) {
+    btn.addEventListener('click', function(e) {
+      e.preventDefault();
+      Pitchy.triggerS7();
+    });
+  });
 })();
 </script>
 

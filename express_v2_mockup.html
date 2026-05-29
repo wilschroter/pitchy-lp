@@ -1,0 +1,763 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Pitchy — Express v2 (NEW slide above ORIGINAL)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Cormorant+Garamond:ital,wght@1,500;1,600;1,700&family=Lato:ital,wght@1,400;1,700&display=swap" rel="stylesheet">
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html, body {
+    background: #14152C;
+    min-height: 100vh;
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    color: #fff;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* Top nav (kept identical to live app) */
+  .topnav {
+    background: #0E0F1F;
+    border-bottom: 1px solid rgba(255,255,255,0.06);
+    display: flex; justify-content: space-between; align-items: center;
+    padding: 16px 28px;
+  }
+  .brand { display: flex; align-items: center; gap: 12px; }
+  .brand-logo {
+    width: 32px; height: 32px;
+    border-radius: 7px;
+    background: #EE7B3B;
+    color: #fff;
+    font-weight: 800; font-size: 17px;
+    display: flex; align-items: center; justify-content: center;
+  }
+  .brand-name { font-weight: 700; font-size: 17px; }
+  .brand-version {
+    margin-left: 6px;
+    padding: 2px 8px;
+    background: rgba(238,123,59,0.18);
+    color: #EE7B3B;
+    border-radius: 5px;
+    font-size: 11px; font-weight: 700;
+  }
+  .nav-links { display: flex; gap: 24px; }
+  .nav-links a {
+    color: #8A8F9B; text-decoration: none;
+    font-size: 12px; font-weight: 600; letter-spacing: 0.16em; text-transform: uppercase;
+  }
+
+  /* Workspace shell */
+  .shell { display: flex; padding: 28px 32px; gap: 28px; min-height: calc(100vh - 60px); }
+
+  /* Slide rail (compact, matches live app's PS/SS/HW codes) */
+  .rail {
+    width: 90px; flex-shrink: 0;
+    display: flex; flex-direction: column; gap: 6px;
+  }
+  .rail-toggle {
+    width: 32px; height: 32px;
+    background: rgba(255,255,255,0.04);
+    border: 1px solid rgba(255,255,255,0.06);
+    border-radius: 8px;
+    color: #b4b8cc; font-size: 16px;
+    display: flex; align-items: center; justify-content: center;
+    margin-bottom: 10px;
+  }
+  .rail-item {
+    display: inline-flex;
+    align-items: center; justify-content: center;
+    min-width: 32px; padding: 0 10px; height: 32px;
+    border-radius: 7px;
+    background: rgba(255,255,255,0.04);
+    color: #8a8fa8;
+    font-size: 11px; font-weight: 700; letter-spacing: 0.06em;
+    cursor: pointer;
+  }
+  .rail-item.is-current { background: #EE7B3B; color: #fff; }
+
+  /* Main two-column area */
+  .main { flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 22px; }
+
+  /* ===== Header row (back / title / score / mode / tabs / forward) ===== */
+  .se-nav { display: flex; align-items: center; gap: 18px; flex-wrap: wrap; }
+  .nav-arrow {
+    width: 36px; height: 36px;
+    border-radius: 50%;
+    background: rgba(255,255,255,0.05);
+    border: 1px solid rgba(255,255,255,0.10);
+    color: #d9dbf0;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 18px;
+  }
+  .se-name {
+    font-size: 30px; font-weight: 800;
+    letter-spacing: -0.02em; line-height: 1.1;
+    color: #fff;
+  }
+  .se-score {
+    position: relative; width: 72px; height: 72px;
+  }
+  .se-score svg { width: 100%; height: 100%; transform: rotate(-90deg); }
+  .se-score .track { fill: none; stroke: rgba(255,255,255,0.08); stroke-width: 6.5; }
+  .se-score .fill { fill: none; stroke: #EAB308; stroke-width: 6.5; stroke-linecap: round;
+    stroke-dasharray: 213.6; stroke-dashoffset: 117; }
+  .se-score .inner {
+    position: absolute; inset: 0;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 20px; font-weight: 800; letter-spacing: -0.02em;
+  }
+  .se-score .inner sup { font-size: 11px; font-weight: 700; opacity: 0.7; margin-left: 1px; }
+  .se-score-label {
+    margin-top: 4px; text-align: center;
+    font-size: 10px; font-weight: 700;
+    letter-spacing: 0.14em; text-transform: uppercase;
+    color: #EAB308;
+  }
+
+  .mode-toggle {
+    margin-left: auto;
+    display: inline-flex;
+    background: rgba(99,102,241,0.10);
+    border: 1px solid rgba(99,102,241,0.22);
+    border-radius: 999px;
+    padding: 4px;
+  }
+  .mode-opt {
+    padding: 7px 16px;
+    border-radius: 999px;
+    border: 0;
+    background: transparent;
+    color: #9ca0e8;
+    font-family: inherit;
+    font-size: 11px; font-weight: 700;
+    letter-spacing: 0.12em; text-transform: uppercase;
+    cursor: pointer;
+  }
+  .mode-opt.is-active {
+    background: #6366F1;
+    color: #fff;
+    box-shadow: 0 4px 10px rgba(99,102,241,0.40);
+  }
+
+  .se-tabs {
+    display: flex;
+    background: rgba(255,255,255,0.04);
+    border: 1px solid rgba(255,255,255,0.06);
+    border-radius: 999px;
+    padding: 4px;
+  }
+  .se-tab {
+    padding: 7px 14px;
+    border: 0;
+    background: transparent;
+    color: #8a8fa8;
+    font-family: inherit;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.12em; text-transform: uppercase;
+    border-radius: 999px;
+    cursor: pointer;
+    display: inline-flex; align-items: center; gap: 6px;
+  }
+  .se-tab.is-active {
+    background: #6366F1;
+    color: #fff;
+    font-weight: 700;
+  }
+
+  /* ===== Body: left column + right column ===== */
+  .body-grid {
+    display: grid;
+    grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr);
+    gap: 28px;
+    align-items: start;
+  }
+
+  /* ===== "What needs work" editorial title ===== */
+  .se-section-title {
+    position: relative;
+    padding-left: 18px;
+    font-family: 'Cormorant Garamond', serif;
+    font-style: italic;
+    font-weight: 600;
+    font-size: 28px;
+    color: rgba(255,255,255,0.88);
+    margin-bottom: 14px;
+    line-height: 1.1;
+  }
+  .se-section-title::before {
+    content: ''; position: absolute;
+    left: 0; bottom: 8px;
+    width: 6px; height: 22px;
+    background: #EE7B3B; border-radius: 2px;
+  }
+
+  /* ===== Rolled-up TLDR (collapsed one-liner) ===== */
+  .tldr-rolled {
+    display: flex; align-items: center; gap: 12px;
+    background: linear-gradient(180deg, rgba(241,239,232,0.06), rgba(241,239,232,0.02));
+    border: 1px solid rgba(241,239,232,0.14);
+    border-radius: 14px;
+    padding: 12px 16px;
+    margin-bottom: 20px;
+    cursor: pointer;
+  }
+  .tldr-rolled:hover { border-color: rgba(241,239,232,0.30); }
+  .tldr-rolled-icon {
+    font-family: 'Cormorant Garamond', serif;
+    font-weight: 700;
+    font-size: 28px;
+    color: #EE7B3B;
+    line-height: 0.9;
+    flex-shrink: 0;
+  }
+  .tldr-rolled-text {
+    font-family: 'Lato', sans-serif;
+    font-style: italic;
+    font-size: 14.5px;
+    line-height: 1.4;
+    color: #e8eaf6;
+    flex: 1; min-width: 0;
+  }
+  .tldr-rolled-text strong { font-weight: 700; color: #fff; }
+  .tldr-rolled-attr {
+    display: inline-flex; align-items: center; gap: 8px;
+    font-size: 10px; font-weight: 700;
+    letter-spacing: 0.14em; text-transform: uppercase;
+    color: #9ca0e8;
+    flex-shrink: 0;
+  }
+  .tldr-rolled-avatar {
+    width: 22px; height: 22px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #c39d7b, #6b4a33);
+    border: 1.5px solid rgba(255,255,255,0.15);
+  }
+  .tldr-rolled-expand {
+    color: #8a8fa8; font-size: 14px; flex-shrink: 0;
+  }
+
+  /* ===== Suggested Fixes (moved up) ===== */
+  .fixes-head { margin-bottom: 12px; }
+  .fixes-title {
+    font-size: 18px; font-weight: 800;
+    letter-spacing: -0.01em; color: #fff;
+    margin-bottom: 3px;
+  }
+  .fixes-sub { font-size: 12px; color: #8a8fa8; }
+  .fixes-list { display: flex; flex-direction: column; gap: 8px; margin-bottom: 22px; }
+
+  .fix {
+    background: #20223C;
+    border: 1px solid rgba(255,255,255,0.06);
+    border-radius: 14px;
+    overflow: hidden;
+  }
+  .fix[data-rank="1"] { border-left: 3px solid #DC4A41; }
+  .fix[data-rank="2"] { border-left: 3px solid #D2A01E; }
+  .fix[data-rank="3"] { border-left: 3px solid #EE7B3B; }
+  .fix.is-open { background: #262848; border-color: rgba(255,255,255,0.12); }
+  .fix-summary {
+    display: grid;
+    grid-template-columns: 30px 1fr auto;
+    gap: 12px;
+    align-items: center;
+    padding: 14px 16px;
+  }
+  .fix-arrow {
+    font-size: 24px; line-height: 1; font-weight: 700;
+    transition: transform 220ms cubic-bezier(.2,.7,.2,1);
+  }
+  .fix[data-rank="1"] .fix-arrow { color: #DC4A41; }
+  .fix[data-rank="2"] .fix-arrow { color: #D2A01E; }
+  .fix[data-rank="3"] .fix-arrow { color: #EE7B3B; }
+  .fix.is-open .fix-arrow { transform: rotate(90deg); }
+  .fix-title-wrap {
+    display: flex; flex-direction: column; gap: 3px; min-width: 0;
+  }
+  .fix-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-weight: 600;
+    font-size: 19px;
+    color: #fff;
+    letter-spacing: -0.005em;
+  }
+  .fix-meta {
+    display: inline-flex; align-items: center; gap: 8px;
+  }
+  .fix-rule {
+    font-size: 10px; font-weight: 700;
+    letter-spacing: 0.14em; text-transform: uppercase;
+    opacity: 0.75;
+  }
+  .fix[data-rank="1"] .fix-rule { color: #DC4A41; }
+  .fix[data-rank="2"] .fix-rule { color: #D2A01E; }
+  .fix[data-rank="3"] .fix-rule { color: #EE7B3B; }
+  .fix-points {
+    font-size: 10px; font-weight: 700; letter-spacing: 0.06em;
+    padding: 2px 8px;
+    border-radius: 999px;
+    background: rgba(255,255,255,0.04);
+    border: 1px solid rgba(255,255,255,0.10);
+    color: #b4b8cc;
+  }
+  .fix[data-rank="1"] .fix-points { color: #FF8A82; background: rgba(220,74,65,0.10); border-color: rgba(220,74,65,0.30); }
+  .fix[data-rank="2"] .fix-points { color: #F0C46F; background: rgba(210,160,30,0.10); border-color: rgba(210,160,30,0.30); }
+  .fix[data-rank="3"] .fix-points { color: #F49A60; background: rgba(238,123,59,0.10); border-color: rgba(238,123,59,0.30); }
+  .fix-workshop-btn {
+    background: transparent;
+    border: 1px solid rgba(99,102,241,0.30);
+    color: #9ca0e8;
+    font-family: inherit;
+    font-size: 11px; font-weight: 600;
+    padding: 6px 12px;
+    border-radius: 999px;
+    cursor: pointer;
+  }
+  .fix-workshop-btn:hover { background: rgba(99,102,241,0.10); color: #fff; }
+  .fix-body {
+    display: none;
+    padding: 0 18px 18px 60px;
+    color: #b4b8cc;
+    font-size: 13.5px;
+    line-height: 1.6;
+  }
+  .fix.is-open .fix-body { display: block; }
+
+  /* "Give me way too much feedback" subtle button */
+  .feedback-btn {
+    display: inline-flex; align-items: center; gap: 8px;
+    padding: 7px 14px 7px 8px;
+    border: 1px solid rgba(255,255,255,0.12);
+    background: rgba(255,255,255,0.03);
+    border-radius: 999px;
+    color: #b4b8cc;
+    font-family: inherit; font-size: 12.5px; font-weight: 600;
+    cursor: pointer;
+  }
+  .feedback-btn-chev {
+    width: 18px; height: 18px;
+    background: #20223C;
+    border-radius: 50%;
+    display: inline-flex; align-items: center; justify-content: center;
+    color: #b4b8cc; font-size: 14px;
+  }
+
+  /* ===== Right column: NEW slide above ORIGINAL slide ===== */
+  .right-col { display: flex; flex-direction: column; gap: 10px; position: sticky; top: 28px; }
+
+  .slide-card {
+    background: transparent;
+    border-radius: 14px;
+    overflow: visible;
+    position: relative;
+  }
+  .slide-card-head {
+    display: flex; justify-content: space-between; align-items: center;
+    margin-bottom: 8px;
+    font-size: 10.5px; font-weight: 700;
+    letter-spacing: 0.18em; text-transform: uppercase;
+  }
+  .slide-card-eyebrow { color: #8a8fa8; }
+  .slide-card.new .slide-card-eyebrow { color: #22B2BA; }
+  .slide-card-meta { color: #6a6f8a; font-weight: 600; letter-spacing: 0.06em; }
+  .slide-card.new .slide-card-meta { color: #22B2BA; }
+
+  /* The deck slide thumbnail itself */
+  .slide-thumb {
+    background: #fff;
+    color: #1A1A1A;
+    border-radius: 14px;
+    padding: 22px 26px 24px;
+    aspect-ratio: 16 / 9;
+    position: relative;
+    overflow: hidden;
+  }
+  .slide-card.new .slide-thumb {
+    border: 2px solid #22B2BA;
+    box-shadow: 0 12px 32px -16px rgba(34,178,186,0.55);
+  }
+  .slide-thumb .slide-tag {
+    display: inline-block;
+    background: #E1F5EE;
+    color: #0F6E56;
+    font-size: 10px; font-weight: 700;
+    letter-spacing: 0.14em; text-transform: uppercase;
+    padding: 4px 9px;
+    border-radius: 4px;
+    margin-bottom: 14px;
+  }
+
+  /* === NEW slide content === */
+  .new-headline {
+    font-family: 'Inter', sans-serif;
+    font-weight: 800;
+    font-size: 22px;
+    line-height: 1.25;
+    color: #0F6E56;
+    margin-bottom: 14px;
+    letter-spacing: -0.015em;
+  }
+  .new-sentence {
+    font-family: 'Inter', sans-serif;
+    font-weight: 600;
+    font-size: 17px;
+    line-height: 1.45;
+    color: #1A1A1A;
+    letter-spacing: -0.01em;
+  }
+  .new-sentence .anno-customer { background: linear-gradient(180deg, transparent 60%, rgba(34,178,186,0.30) 60%); padding: 0 2px; }
+  .new-sentence .anno-dollar   { background: linear-gradient(180deg, transparent 60%, rgba(238,123,59,0.40) 60%); padding: 0 2px; font-weight: 700; }
+  .new-sentence .anno-behavior { background: linear-gradient(180deg, transparent 60%, rgba(210,160,30,0.32) 60%); padding: 0 2px; }
+  .new-sentence .anno-failure  { background: linear-gradient(180deg, transparent 60%, rgba(220,74,65,0.30) 60%); padding: 0 2px; }
+
+  .new-legend {
+    display: flex; flex-wrap: wrap; gap: 6px;
+    margin-top: 16px;
+    padding-top: 12px;
+    border-top: 0.5px solid #E4E4E0;
+  }
+  .new-legend .chip {
+    display: inline-flex; align-items: center; gap: 5px;
+    font-size: 9.5px; font-weight: 700;
+    letter-spacing: 0.10em; text-transform: uppercase;
+    padding: 3px 8px;
+    border-radius: 999px;
+    background: rgba(0,0,0,0.04);
+    color: #444;
+  }
+  .new-legend .chip .dot { width: 7px; height: 7px; border-radius: 2px; }
+
+  .new-source {
+    margin-top: 12px;
+    font-size: 11px;
+    color: #6B6B6B;
+    line-height: 1.4;
+  }
+
+  /* === ORIGINAL (Before) slide content === */
+  .orig-heading {
+    font-family: 'Inter', sans-serif;
+    font-weight: 800;
+    font-size: 18px;
+    line-height: 1.2;
+    color: #1A1A1A;
+    margin-bottom: 10px;
+    letter-spacing: -0.01em;
+  }
+  .orig-cols {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+  }
+  .orig-scale {
+    background: #0F6E56;
+    color: #fff;
+    border-radius: 6px;
+    padding: 12px 11px;
+    font-size: 10.5px;
+    line-height: 1.4;
+  }
+  .orig-scale strong { display: block; font-weight: 700; font-size: 11px; margin-bottom: 5px; }
+  .orig-impact { font-size: 10px; line-height: 1.5; color: #444; }
+  .orig-impact .h { font-weight: 700; color: #1A1A1A; margin-bottom: 5px; font-size: 11px; }
+  .orig-footer {
+    margin-top: 14px;
+    padding-top: 9px;
+    border-top: 0.5px solid #E4E4E0;
+    font-size: 9.5px;
+    color: #6B6B6B;
+    line-height: 1.4;
+  }
+
+  /* Score-delta + Accept overlay on the NEW slide card */
+  .new-accept-bar {
+    display: flex; align-items: center; gap: 12px;
+    margin-top: 12px;
+    padding: 12px 14px;
+    background: linear-gradient(180deg, rgba(34,178,186,0.10), rgba(34,178,186,0.04));
+    border: 1px solid rgba(34,178,186,0.32);
+    border-radius: 14px;
+  }
+  .new-accept-delta {
+    display: flex; flex-direction: column; gap: 2px;
+  }
+  .new-accept-delta .deltanum {
+    font-size: 16px; font-weight: 800; color: #22B2BA;
+    letter-spacing: -0.02em;
+  }
+  .new-accept-delta .deltacap {
+    font-size: 9.5px; font-weight: 700; letter-spacing: 0.14em;
+    text-transform: uppercase; color: #8a8fa8;
+  }
+  .new-accept-spacer { flex: 1; }
+  .btn {
+    border: 0;
+    font-family: inherit;
+    font-weight: 700;
+    border-radius: 999px;
+    cursor: pointer;
+  }
+  .btn-accept {
+    background: linear-gradient(180deg, #2BD0AC 0%, #1FA386 100%);
+    color: #04342C;
+    padding: 11px 18px;
+    font-size: 13.5px;
+    box-shadow: 0 6px 14px rgba(34,178,186,0.32);
+  }
+  .btn-ghost {
+    background: transparent;
+    color: #b4b8cc;
+    border: 1px solid rgba(255,255,255,0.16);
+    padding: 10px 14px;
+    font-size: 12px;
+  }
+  .btn-ghost:hover { color: #fff; }
+
+  /* Between-slides arrow */
+  .between-slides {
+    display: flex; justify-content: center; align-items: center;
+    color: #6366F1;
+    font-size: 22px;
+    line-height: 1;
+    padding: 10px 0;
+    opacity: 0.5;
+  }
+
+  /* Mockup meta header at top */
+  .meta {
+    background: #0a0b16;
+    text-align: center;
+    padding: 36px 32px 24px;
+  }
+  .meta .tag {
+    color: #EE9A3B; font-size: 12px; font-weight: 700;
+    letter-spacing: 0.18em; text-transform: uppercase; margin-bottom: 6px;
+  }
+  .meta h1 {
+    font-size: 28px; font-weight: 800; letter-spacing: -0.02em; margin-bottom: 6px;
+  }
+  .meta p { color: #8a8fa8; font-size: 14px; max-width: 760px; margin: 0 auto; }
+</style>
+</head>
+<body>
+
+<div class="meta">
+  <div class="tag">PITCHY · EXPRESS v2</div>
+  <h1>Stay in the slide editor. Insert a clean new slide above the original.</h1>
+  <p>TLDR collapses to a single line, fixes move up below it, and the right side becomes a stacked NEW (top) → ORIGINAL (bottom) preview. The new slide carries only the rewrite content, not a mashup with the old layout.</p>
+</div>
+
+<header class="topnav">
+  <div class="brand">
+    <div class="brand-logo">P</div>
+    <div class="brand-name">Pitchy <span class="brand-version">1.1</span></div>
+  </div>
+  <div class="nav-links">
+    <a>Audit</a>
+    <a>Rules</a>
+  </div>
+</header>
+
+<div class="shell">
+
+  <!-- ============ RAIL ============ -->
+  <aside class="rail">
+    <div class="rail-toggle">»</div>
+    <span class="rail-item">CV</span>
+    <span class="rail-item is-current">PS</span>
+    <span class="rail-item">SS</span>
+    <span class="rail-item">HW</span>
+    <span class="rail-item">CU</span>
+    <span class="rail-item">MS</span>
+    <span class="rail-item">BM</span>
+    <span class="rail-item">WN</span>
+    <span class="rail-item">CO</span>
+    <span class="rail-item">TR</span>
+    <span class="rail-item">GM</span>
+    <span class="rail-item">TM</span>
+    <span class="rail-item">FU</span>
+    <span class="rail-item">TY</span>
+  </aside>
+
+  <!-- ============ MAIN ============ -->
+  <div class="main">
+
+    <!-- HEADER -->
+    <div class="se-nav">
+      <div class="nav-arrow">←</div>
+      <div class="se-name">Problem Statement</div>
+      <div>
+        <div class="se-score">
+          <svg viewBox="0 0 80 80">
+            <circle class="track" cx="40" cy="40" r="34"/>
+            <circle class="fill"  cx="40" cy="40" r="34"/>
+          </svg>
+          <div class="inner">45<sup>%</sup></div>
+        </div>
+        <div class="se-score-label">Needs Work</div>
+      </div>
+      <div class="mode-toggle">
+        <button class="mode-opt is-active">Express</button>
+        <button class="mode-opt">Advanced</button>
+      </div>
+      <div class="se-tabs">
+        <button class="se-tab is-active">⌕ Assessment ✓</button>
+        <button class="se-tab">Interview</button>
+        <button class="se-tab">Rewrite</button>
+      </div>
+      <div class="nav-arrow">→</div>
+    </div>
+
+    <!-- BODY GRID -->
+    <div class="body-grid">
+
+      <!-- ========= LEFT COLUMN ========= -->
+      <div class="left-col">
+
+        <!-- In Express mode, the "What needs work" title and rolled-up TLDR are
+             hidden — the right-side rewrite IS the answer, so the diagnosis text
+             would just be noise. Switching to Advanced restores both. -->
+
+        <!-- Suggested Fixes -->
+        <div class="fixes-head">
+          <div class="fixes-title">Suggested Fixes</div>
+          <div class="fixes-sub">Workshop any one of these, or accept Pitchy's full rewrite on the right.</div>
+        </div>
+
+        <div class="fixes-list">
+
+          <div class="fix is-open" data-rank="1">
+            <div class="fix-summary">
+              <span class="fix-arrow">›</span>
+              <div class="fix-title-wrap">
+                <div class="fix-title">No Market Size anywhere</div>
+                <div class="fix-meta">
+                  <span class="fix-rule">PS-DOLLAR</span>
+                  <span class="fix-points">+22 pts</span>
+                </div>
+              </div>
+              <button class="fix-workshop-btn">Workshop →</button>
+            </div>
+            <div class="fix-body">
+              We've got scale stats (500+ cables, 1,000+ platforms) but no dollar figure tied to the pain. Without a number, the investor can't gauge whether this is a $500M niche or a $50B venture-scale opportunity.
+            </div>
+          </div>
+
+          <div class="fix" data-rank="2">
+            <div class="fix-summary">
+              <span class="fix-arrow">›</span>
+              <div class="fix-title-wrap">
+                <div class="fix-title">Buyer is buried at the bottom</div>
+                <div class="fix-meta">
+                  <span class="fix-rule">PS-CUSTOMER</span>
+                  <span class="fix-points">+18 pts</span>
+                </div>
+              </div>
+              <button class="fix-workshop-btn">Workshop →</button>
+            </div>
+          </div>
+
+          <div class="fix" data-rank="3">
+            <div class="fix-summary">
+              <span class="fix-arrow">›</span>
+              <div class="fix-title-wrap">
+                <div class="fix-title">It's way too dense</div>
+                <div class="fix-meta">
+                  <span class="fix-rule">PS-COMPOSED</span>
+                  <span class="fix-points">+15 pts</span>
+                </div>
+              </div>
+              <button class="fix-workshop-btn">Workshop →</button>
+            </div>
+          </div>
+
+        </div>
+
+        <button class="feedback-btn">
+          <span class="feedback-btn-chev">›</span>
+          Give me way too much feedback
+        </button>
+      </div>
+
+      <!-- ========= RIGHT COLUMN ========= -->
+      <div class="right-col">
+
+        <!-- NEW slide (top, prominent) -->
+        <div class="slide-card new">
+          <div class="slide-card-head">
+            <span class="slide-card-eyebrow">New · Pitchy's rewrite</span>
+            <span class="slide-card-meta">Score 45 → 67 · +22 pts</span>
+          </div>
+          <div class="slide-thumb">
+            <span class="slide-tag">Problem</span>
+            <div class="new-headline">A $10B+ problem hiding in plain sight.</div>
+            <div class="new-sentence">
+              <span class="anno-customer">Offshore operators</span>
+              spend
+              <span class="anno-dollar">$10B+ per year</span>
+              on
+              <span class="anno-behavior">legacy periodic inspections</span>
+              that
+              <span class="anno-failure">leave critical infrastructure damage undetected for hours or days</span>.
+            </div>
+            <div class="new-legend">
+              <span class="chip"><span class="dot" style="background:#22B2BA"></span>Customer</span>
+              <span class="chip"><span class="dot" style="background:#EE7B3B"></span>$ / Market</span>
+              <span class="chip"><span class="dot" style="background:#D2A01E"></span>Status quo</span>
+              <span class="chip"><span class="dot" style="background:#DC4A41"></span>Why it fails</span>
+            </div>
+            <div class="new-source">
+              $8B offshore maintenance + $2B ROV inspection — McKinsey 2024
+            </div>
+          </div>
+
+          <div class="new-accept-bar">
+            <div class="new-accept-delta">
+              <span class="deltanum">+22 pts</span>
+              <span class="deltacap">Drop in, done</span>
+            </div>
+            <div class="new-accept-spacer"></div>
+            <button class="btn btn-ghost">Tweak it</button>
+            <button class="btn btn-accept">Accept this rewrite →</button>
+          </div>
+        </div>
+
+        <div class="between-slides">↓</div>
+
+        <!-- ORIGINAL slide (bottom, muted) -->
+        <div class="slide-card original">
+          <div class="slide-card-head">
+            <span class="slide-card-eyebrow">Current · from your deck</span>
+            <span class="slide-card-meta">PS · Slide 2 of 14</span>
+          </div>
+          <div class="slide-thumb">
+            <span class="slide-tag">Problem</span>
+            <div class="orig-heading">Critical ocean infrastructure lacks real-time monitoring</div>
+            <div class="orig-cols">
+              <div class="orig-scale">
+                <strong>The Scale</strong>
+                500+ subsea cables. 1,000+ offshore platforms.
+              </div>
+              <div class="orig-impact">
+                <div class="h">The Impact</div>
+                • Damage undetected for hours<br>
+                • Costly preventable downtime<br>
+                • Periodic inspections only
+              </div>
+            </div>
+            <div class="orig-footer">
+              <strong>Who pays:</strong> Governments, energy operators, telecom infrastructure owners — all operating blind.
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</div>
+
+</body>
+</html>

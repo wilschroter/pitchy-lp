@@ -1,0 +1,550 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Pitchy — Express vs. Advanced (Mockup)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Cormorant+Garamond:ital,wght@1,500;1,600;1,700&family=Lato:ital,wght@1,400;1,700&display=swap" rel="stylesheet">
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html, body {
+    background: #0a0b16;
+    min-height: 100vh;
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    color: #fff;
+    -webkit-font-smoothing: antialiased;
+  }
+  .frame {
+    max-width: 1280px;
+    margin: 0 auto;
+    padding: 40px 32px 80px;
+  }
+
+  .meta { text-align: center; margin-bottom: 36px; }
+  .meta .tag {
+    color: #EE9A3B; font-size: 12px; font-weight: 700;
+    letter-spacing: 0.18em; text-transform: uppercase; margin-bottom: 6px;
+  }
+  .meta h1 {
+    font-size: 30px; font-weight: 800; letter-spacing: -0.02em; margin-bottom: 6px;
+  }
+  .meta p { color: #8a8fa8; font-size: 14px; max-width: 720px; margin: 0 auto; }
+
+  /* ===== Slide editor header (kept) ===== */
+  .se-top {
+    display: flex; align-items: center; gap: 14px;
+    margin-bottom: 22px;
+  }
+  .back {
+    width: 36px; height: 36px;
+    border-radius: 50%;
+    background: rgba(255,255,255,0.04);
+    border: 1px solid rgba(255,255,255,0.10);
+    display: flex; align-items: center; justify-content: center;
+    color: #b4b8cc; font-size: 18px;
+  }
+  .name {
+    font-size: 30px; font-weight: 800; letter-spacing: -0.02em;
+  }
+  .score-ring {
+    margin-left: 12px; width: 64px; height: 64px;
+    position: relative;
+  }
+  .score-ring svg { width: 100%; height: 100%; transform: rotate(-90deg); }
+  .score-ring .track { fill: none; stroke: rgba(255,255,255,0.08); stroke-width: 6; }
+  .score-ring .fill { fill: none; stroke: #EAB308; stroke-width: 6; stroke-linecap: round;
+    stroke-dasharray: 213.6; stroke-dashoffset: 117; }
+  .score-ring .inner {
+    position: absolute; inset: 0;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 18px; font-weight: 800; letter-spacing: -0.02em;
+  }
+  .score-ring .inner sup { font-size: 10px; font-weight: 700; opacity: 0.7; margin-left: 1px; }
+  .se-tabs {
+    margin-left: auto;
+    display: flex;
+    background: rgba(255,255,255,0.04);
+    border: 1px solid rgba(255,255,255,0.06);
+    border-radius: 999px;
+    padding: 4px;
+  }
+  .se-tab {
+    padding: 8px 16px;
+    border: 0;
+    background: transparent;
+    color: #8a8fa8;
+    font-family: inherit;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    border-radius: 999px;
+    cursor: pointer;
+  }
+  .se-tab.is-active {
+    background: #6366F1;
+    color: #fff;
+    font-weight: 700;
+  }
+
+  /* ===== Mode toggle ===== */
+  .mode-row {
+    display: flex; align-items: center; gap: 14px;
+    margin-bottom: 22px;
+    padding: 12px 16px;
+    background: rgba(99,102,241,0.06);
+    border: 1px solid rgba(99,102,241,0.18);
+    border-radius: 14px;
+  }
+  .mode-label {
+    font-size: 11px; font-weight: 700;
+    letter-spacing: 0.16em; text-transform: uppercase;
+    color: #9ca0e8;
+  }
+  .mode-toggle {
+    display: inline-flex;
+    background: rgba(255,255,255,0.05);
+    border: 1px solid rgba(255,255,255,0.10);
+    border-radius: 999px;
+    padding: 3px;
+  }
+  .mode-opt {
+    padding: 6px 14px;
+    border-radius: 999px;
+    border: 0;
+    background: transparent;
+    color: #8a8fa8;
+    font-family: inherit;
+    font-size: 12px;
+    font-weight: 600;
+    cursor: pointer;
+  }
+  .mode-opt.is-active {
+    background: #6366F1;
+    color: #fff;
+  }
+  .mode-hint { font-size: 12px; color: #8a8fa8; margin-left: auto; }
+
+  /* ===== "What needs work" ===== */
+  .se-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-style: italic;
+    font-weight: 600;
+    font-size: 26px;
+    color: rgba(255,255,255,0.88);
+    margin-bottom: 16px;
+    padding-left: 16px;
+    position: relative;
+    display: inline-flex;
+    align-items: baseline;
+  }
+  .se-title::before {
+    content: ''; position: absolute;
+    left: 0; bottom: 6px;
+    width: 5px; height: 20px;
+    background: #EE7B3B; border-radius: 2px;
+  }
+
+  /* ===== TLDR speech bubble (preserved) ===== */
+  .speech-wrap { margin-bottom: 22px; max-width: 760px; }
+  .speech {
+    position: relative;
+    background: #F1EFE8;
+    border-radius: 22px;
+    padding: 28px 36px 30px 56px;
+  }
+  .speech::after {
+    content: ''; position: absolute;
+    right: 40px; bottom: -14px;
+    width: 22px; height: 22px;
+    background: #F1EFE8;
+    clip-path: polygon(0 0, 100% 0, 30% 100%);
+  }
+  .speech-q {
+    position: absolute; top: 16px; left: 18px;
+    font-family: 'Cormorant Garamond', serif;
+    font-weight: 700; font-size: 60px;
+    line-height: 1; color: #EE7B3B;
+  }
+  .speech-text {
+    font-family: 'Lato', sans-serif;
+    font-style: italic;
+    font-weight: 400;
+    font-size: 22px;
+    line-height: 1.45;
+    color: #2C2C2A;
+  }
+  .speech-text strong { font-weight: 700; color: #1A1A1A; }
+  .speaker-attr {
+    display: flex; justify-content: flex-end; align-items: center;
+    gap: 10px; margin-top: 14px;
+  }
+  .speaker-attr .name-text {
+    color: #9ca0e8; font-size: 11px; font-weight: 700;
+    letter-spacing: 0.14em; text-transform: uppercase;
+  }
+  .speaker-avatar {
+    width: 28px; height: 28px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #c39d7b, #6b4a33);
+    border: 1.5px solid rgba(255,255,255,0.18);
+  }
+
+  /* =================================================================
+     EXPRESS MODE — Pitchy's full rewrite as final copy
+     ================================================================= */
+  .express-card {
+    background: #14152C;
+    border: 1px solid rgba(34,178,186,0.30);
+    border-radius: 22px;
+    padding: 24px 28px;
+    margin-bottom: 18px;
+    position: relative;
+    overflow: hidden;
+  }
+  .express-card::before {
+    /* subtle teal corner accent */
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 3px;
+    background: linear-gradient(90deg, #22B2BA, #6366F1, #EE7B3B);
+  }
+  .express-eyebrow {
+    display: flex; align-items: center; gap: 10px;
+    margin-bottom: 12px;
+  }
+  .express-eyebrow .lbl {
+    color: #22B2BA;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+  }
+  .express-eyebrow .delta {
+    margin-left: auto;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 5px 12px;
+    background: rgba(34,178,186,0.14);
+    border: 1px solid rgba(34,178,186,0.30);
+    border-radius: 999px;
+    font-size: 11px;
+    font-weight: 700;
+    color: #6fdde2;
+    letter-spacing: 0.08em;
+  }
+  .express-eyebrow .delta .num { font-size: 14px; font-weight: 800; }
+  .express-headline {
+    font-family: 'Inter', sans-serif;
+    font-size: 24px;
+    font-weight: 800;
+    letter-spacing: -0.02em;
+    line-height: 1.25;
+    margin-bottom: 14px;
+    color: #fff;
+  }
+  .express-headline .accent { color: #22B2BA; }
+  .express-body {
+    font-size: 15.5px;
+    line-height: 1.55;
+    color: #d9dbf0;
+    margin-bottom: 18px;
+  }
+  /* Rewrite preview as it would appear on the actual deck slide */
+  .rewrite-slide {
+    background: #fff;
+    color: #1A1A1A;
+    border-radius: 12px;
+    padding: 20px 24px;
+    margin-bottom: 18px;
+    position: relative;
+  }
+  .rewrite-slide .tag {
+    display: inline-block;
+    background: #E1F5EE;
+    color: #0F6E56;
+    font-size: 9.5px;
+    font-weight: 700;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    padding: 4px 9px;
+    border-radius: 4px;
+    margin-bottom: 14px;
+  }
+  .rewrite-slide .sentence {
+    font-family: 'Inter', sans-serif;
+    font-weight: 800;
+    font-size: 22px;
+    line-height: 1.35;
+    color: #1A1A1A;
+    letter-spacing: -0.015em;
+  }
+  .rewrite-slide .sentence .anno {
+    background: linear-gradient(180deg, transparent 60%, rgba(238,123,59,0.30) 60%);
+    padding: 0 2px;
+  }
+  .rewrite-slide .anno-customer { background: linear-gradient(180deg, transparent 60%, rgba(34,178,186,0.30) 60%); padding: 0 2px; }
+  .rewrite-slide .anno-dollar   { background: linear-gradient(180deg, transparent 60%, rgba(238,123,59,0.35) 60%); padding: 0 2px; }
+  .rewrite-slide .anno-behavior { background: linear-gradient(180deg, transparent 60%, rgba(210,160,30,0.30) 60%); padding: 0 2px; }
+  .rewrite-slide .anno-failure  { background: linear-gradient(180deg, transparent 60%, rgba(220,74,65,0.30) 60%); padding: 0 2px; }
+
+  .anno-legend {
+    display: flex; flex-wrap: wrap; gap: 8px;
+    margin-top: 14px;
+  }
+  .anno-legend .chip {
+    display: inline-flex; align-items: center; gap: 6px;
+    font-size: 10.5px; font-weight: 700;
+    letter-spacing: 0.10em; text-transform: uppercase;
+    padding: 4px 10px;
+    border-radius: 999px;
+    background: rgba(0,0,0,0.04);
+    color: #444;
+  }
+  .anno-legend .chip .dot { width: 8px; height: 8px; border-radius: 2px; }
+
+  .express-actions {
+    display: flex; align-items: center; gap: 12px;
+  }
+  .btn {
+    border: 0;
+    padding: 14px 22px;
+    border-radius: 999px;
+    font-family: inherit;
+    font-size: 14px;
+    font-weight: 700;
+    cursor: pointer;
+  }
+  .btn-accept {
+    background: linear-gradient(180deg, #2BD0AC 0%, #1FA386 100%);
+    color: #04342C;
+    box-shadow: 0 6px 16px rgba(34,178,186,0.35);
+  }
+  .btn-accept .delta { font-weight: 800; margin-left: 6px; }
+  .btn-ghost {
+    background: transparent;
+    color: #b4b8cc;
+    border: 1px solid rgba(255,255,255,0.12);
+  }
+  .btn-ghost:hover { color: #fff; border-color: rgba(255,255,255,0.24); }
+  .btn-orange {
+    background: linear-gradient(180deg, #F4A45A 0%, #EE7B3B 100%);
+    color: #1a1c33;
+  }
+
+  /* ===== "Or unpack it" divider ===== */
+  .unpack-row {
+    display: flex; align-items: center; gap: 14px;
+    margin: 24px 0 16px;
+  }
+  .unpack-row .rule {
+    flex: 1; height: 1px;
+    background: rgba(255,255,255,0.10);
+  }
+  .unpack-row .lbl {
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: #6a6f8a;
+  }
+
+  /* ===== Suggested fixes (collapsed by default in Express mode) ===== */
+  .fixes-head { margin-bottom: 12px; }
+  .fixes-title { font-size: 16px; font-weight: 700; color: #d9dbf0; margin-bottom: 3px; }
+  .fixes-sub { font-size: 12.5px; color: #8a8fa8; }
+  .fix {
+    background: rgba(255,255,255,0.02);
+    border: 1px solid rgba(255,255,255,0.06);
+    border-radius: 12px;
+    margin-bottom: 6px;
+    padding: 12px 16px;
+    display: grid;
+    grid-template-columns: 26px 1fr auto auto;
+    gap: 12px;
+    align-items: center;
+  }
+  .fix .arrow { font-size: 22px; line-height: 1; font-weight: 700; }
+  .fix[data-rank="1"] .arrow { color: #DC4A41; }
+  .fix[data-rank="2"] .arrow { color: #D2A01E; }
+  .fix[data-rank="3"] .arrow { color: #EE7B3B; }
+  .fix .title {
+    font-family: 'Cormorant Garamond', serif;
+    font-weight: 600;
+    font-size: 17px;
+    color: #fff;
+  }
+  .fix .rule {
+    font-family: 'Inter', sans-serif;
+    font-size: 9.5px;
+    font-weight: 700;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    opacity: 0.7;
+  }
+  .fix[data-rank="1"] .rule { color: #DC4A41; }
+  .fix[data-rank="2"] .rule { color: #D2A01E; }
+  .fix[data-rank="3"] .rule { color: #EE7B3B; }
+  .fix .pts {
+    font-size: 10.5px;
+    font-weight: 700;
+    color: #b4b8cc;
+    padding: 3px 10px;
+    border-radius: 999px;
+    background: rgba(255,255,255,0.05);
+    border: 1px solid rgba(255,255,255,0.10);
+  }
+  .fix .workshop-btn {
+    font-size: 11.5px;
+    font-weight: 600;
+    color: #9ca0e8;
+    background: transparent;
+    border: 1px solid rgba(99,102,241,0.30);
+    border-radius: 999px;
+    padding: 5px 12px;
+    cursor: pointer;
+    font-family: inherit;
+  }
+  .fix .workshop-btn:hover {
+    background: rgba(99,102,241,0.10);
+    color: #fff;
+  }
+</style>
+</head>
+<body>
+
+<div class="frame">
+
+  <div class="meta">
+    <div class="tag">PITCHY · EXPRESS vs. ADVANCED</div>
+    <h1>Lead with the answer. Let them unpack it only if they want to.</h1>
+    <p>Most Founders want the rewrite, not the lesson. Express mode shows Pitchy's full rewrite as the first thing they see, with one-click Accept. Advanced mode is the per-fix workshop flow.</p>
+  </div>
+
+  <!-- ============ Page header ============ -->
+  <div class="se-top">
+    <div class="back">←</div>
+    <div class="name">Problem Statement</div>
+    <div class="score-ring">
+      <svg viewBox="0 0 80 80">
+        <circle class="track" cx="40" cy="40" r="34"/>
+        <circle class="fill" cx="40" cy="40" r="34"/>
+      </svg>
+      <div class="inner">45<sup>%</sup></div>
+    </div>
+    <div class="se-tabs">
+      <button class="se-tab is-active">Assessment</button>
+      <button class="se-tab">Rewrite</button>
+    </div>
+  </div>
+
+  <!-- ============ Express/Advanced mode toggle ============ -->
+  <div class="mode-row">
+    <span class="mode-label">Mode</span>
+    <div class="mode-toggle">
+      <button class="mode-opt is-active">Express</button>
+      <button class="mode-opt">Advanced</button>
+    </div>
+    <span class="mode-hint">Express = one-click rewrite. Advanced = workshop each fix.</span>
+  </div>
+
+  <!-- ============ "What needs work" + TLDR (kept) ============ -->
+  <div class="se-title">What needs work</div>
+
+  <div class="speech-wrap">
+    <div class="speech">
+      <span class="speech-q">&ldquo;</span>
+      <div class="speech-text">
+        <strong>It's way too dense.</strong> Four components crammed into bullets when this should land in one clean sentence. <strong>Buyer is buried at the bottom</strong>, and there's <strong>no Market Size anywhere</strong>.
+      </div>
+      <div class="speaker-attr">
+        <span class="name-text">Wil, Founder @Startups.com</span>
+        <span class="speaker-avatar"></span>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============ EXPRESS — the rewrite as final copy ============ -->
+  <div class="express-card">
+    <div class="express-eyebrow">
+      <span class="lbl">Pitchy's rewrite — ready to use</span>
+      <span class="delta">Score jumps <span class="num">+22</span> → 67%</span>
+    </div>
+
+    <div class="express-headline">
+      Drop this in. <span class="accent">Investor reads it as one punch.</span>
+    </div>
+
+    <div class="rewrite-slide">
+      <span class="tag">Problem</span>
+      <div class="sentence">
+        <span class="anno-customer">Offshore operators</span> spend
+        <span class="anno-dollar">$10B+ per year</span> on
+        <span class="anno-behavior">legacy periodic inspections</span> that
+        <span class="anno-failure">leave critical infrastructure damage undetected for hours or days</span>.
+      </div>
+      <div class="anno-legend">
+        <span class="chip"><span class="dot" style="background:#22B2BA"></span>Customer</span>
+        <span class="chip"><span class="dot" style="background:#EE7B3B"></span>$ / Market</span>
+        <span class="chip"><span class="dot" style="background:#D2A01E"></span>Status quo</span>
+        <span class="chip"><span class="dot" style="background:#DC4A41"></span>Why it fails</span>
+      </div>
+    </div>
+
+    <div class="express-actions">
+      <button class="btn btn-accept">Accept this rewrite <span class="delta">+22 pts</span></button>
+      <button class="btn btn-orange">Tweak it</button>
+      <button class="btn btn-ghost">Try a different angle</button>
+    </div>
+  </div>
+
+  <!-- ============ "Or unpack it" — surface the fixes for the curious ============ -->
+  <div class="unpack-row">
+    <span class="rule"></span>
+    <span class="lbl">Or unpack it — workshop each issue</span>
+    <span class="rule"></span>
+  </div>
+
+  <div class="fixes-head">
+    <div class="fixes-title">The three reasons the rewrite was needed</div>
+    <div class="fixes-sub">Click any one to workshop it on its own. Each fix adds back to the score independently.</div>
+  </div>
+
+  <div class="fix" data-rank="1">
+    <span class="arrow">›</span>
+    <div>
+      <div class="title">No Market Size anywhere</div>
+      <div class="rule">PS-DOLLAR</div>
+    </div>
+    <span class="pts">+22 pts</span>
+    <button class="workshop-btn">Workshop →</button>
+  </div>
+
+  <div class="fix" data-rank="2">
+    <span class="arrow">›</span>
+    <div>
+      <div class="title">Buyer is buried at the bottom</div>
+      <div class="rule">PS-CUSTOMER</div>
+    </div>
+    <span class="pts">+18 pts</span>
+    <button class="workshop-btn">Workshop →</button>
+  </div>
+
+  <div class="fix" data-rank="3">
+    <span class="arrow">›</span>
+    <div>
+      <div class="title">It's way too dense</div>
+      <div class="rule">PS-COMPOSED</div>
+    </div>
+    <span class="pts">+15 pts</span>
+    <button class="workshop-btn">Workshop →</button>
+  </div>
+
+</div>
+
+</body>
+</html>
